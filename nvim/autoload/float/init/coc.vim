@@ -3,9 +3,9 @@ function! float#init#coc#hook_post_update() abort
    :CocInstall coc-python
 endfunction
 
-function! float#init#coc#hook_source() abort
+function! float#init#coc#hook_add() abort
    nnoremap [Coc] <Nop>
-   nmap    [Myplug]c [Coc]
+   nmap     [Myplug]c [Coc]
 
    set statusline+=[Coc:%{StatusDiagnostic()}]
    function! StatusDiagnostic() abort

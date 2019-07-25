@@ -88,6 +88,6 @@ hook_add = 'call float#init#fzf#hook_add()'
 repo = 'neoclide/coc.nvim'
 if = 'has("nvim")'
 build = './install.sh nightly'
-hook_source = 'call float#init#coc#hook_source()'
+hook_add = 'call float#init#coc#hook_add()'
 hook_post_update = 'call float#init#coc#hook_post_update()'
 
