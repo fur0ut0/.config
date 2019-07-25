@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+eval "export $(tmux show-environment | grep -v "^-" | sed -e 's/=/="/g' -e 's/$/"/g')"
+

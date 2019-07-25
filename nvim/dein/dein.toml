@@ -1,0 +1,93 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+
+# asynchronous execution
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+build = 'make'
+
+
+# colorscheme
+[[plugins]]
+repo = 'float168/vim-colors-halogen-light'
+rev = 'develop'
+
+
+# zenspace highlighting
+[[plugins]]
+repo = 'thinca/vim-zenspace'
+
+
+# trailing whitespace highlighting, deleting
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+
+# indentation level guide
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = 'call float#init#indent_guides#hook_add()'
+
+
+# heuristical adjustment for 'shiftwidth', 'expandtab'
+[[plugins]]
+repo = 'tpope/vim-sleuth'
+
+
+# operation expansion of surroundings
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+
+# custom command repeat
+[[plugins]]
+repo = 'tpope/vim-repeat'
+
+
+# git integration
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+
+# source code template
+[[plugins]]
+repo = 'thinca/vim-template'
+
+
+# key repeat for composite commands
+[[plugins]]
+repo = 'kana/vim-submode'
+hook_add = 'call float#init#submode#hook_add()'
+
+
+# code vertical alignment
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+hook_add = 'call float#init#easy_align#hook_add()'
+
+
+# session creation
+[[plugins]]
+repo = 'xolox/vim-session'
+depends = [ 'xolox/vim-misc' ]
+hook_add = 'call float#init#session#hook_add()'
+
+[[plugins]]
+repo = 'xolox/vim-misc'
+
+
+# fzf
+[[plugins]]
+repo = 'junegunn/fzf'
+hook_add = 'call float#init#fzf#hook_add()'
+
+
+# Language Server Protocol (LSP)
+[[plugins]]
+repo = 'neoclide/coc.nvim'
+if = 'has("nvim")'
+build = './install.sh nightly'
+hook_source = 'call float#init#coc#hook_source()'
+hook_post_update = 'call float#init#coc#hook_post_update()'
+

@@ -1,0 +1,276 @@
+# zshrc
+
+autoload -U zsource
+zsource $ZDOTDIR/local/zshrc.zsh # Source local one at last
+
+# Create XDG Base Directory as needed
+[[ -d $XDG_DATA_HOME/zsh ]]  || mkdir -p $XDG_DATA_HOME/zsh
+[[ -d $XDG_CACHE_HOME/zsh ]] || mkdir -p $XDG_CACHE_HOME/zsh
+
+#==============================================================================
+# BASIC CONFIG
+
+#======#
+# opts #
+#======#
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt share_history
+setopt auto_cd
+setopt auto_pushd
+setopt correct
+setopt list_packed
+setopt no_beep
+HISTFILE=$XDG_DATA_HOME/zsh/history
+HISTSIZE=10000
+SAVEHIST=10000
+REPORTTIME=3
+LISTMAX=0
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude "/" for ctrl-W convenience
+
+#========#
+# keymap #
+#========#
+bindkey -d  # reset keybind
+bindkey -e  # emacs keybind
+
+#=======#
+# color #
+#=======#
+autoload -Uz add-zsh-hook
+autoload -U colors && colors
+
+export LS_COLORS=di="1;34:ln=35:so=32:pi=33:ex=31:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=37;42:ow=30;43"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+alias grep='grep --color=auto'
+
+case $OSTYPE in
+linux*)
+   alias ls='ls --color=auto --group-directories-first'
+   zstyle ':completion:*' list-dirs-first true
+   ;;
+mac*)
+   export LSCOLORS="Exfxcxdxbxagadabaghcad"
+   export CLICOLOR=1
+   ;;
+esac
+
+#=========#
+# zplugin #
+#=========#
+typeset -g -A ZPLGM
+ZPLGM[HOME_DIR]=$XDG_CACHE_HOME/zplugin
+ZPLGM[BIN_DIR]=$ZPLGM[HOME_DIR]/bin
+ZPLGM[ZCOMPDUMP_PATH]=$XDG_CACHE_HOME/zsh/compdump
+ZPFX=$ZPLGM[HOME_DIR]/polaris
+
+if [[ ! -d $ZPLGM[BIN_DIR] ]]; then
+   print "==> Setup zplugin..."
+   [[ -d $ZPLGM[HOME_DIR] ]] || mkdir -p $ZPLGM[HOME_DIR]
+   (( $+commands[git] )) && git clone https://github.com/zdharma/zplugin.git $ZPLGM[BIN_DIR]
+fi
+
+if [[ -f $ZPLGM[BIN_DIR]/zplugin.zsh ]]; then
+   source $ZPLGM[BIN_DIR]/zplugin.zsh
+fi
+
+if (( $+functions[zplugin] )); then
+   zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+
+   zplugin ice from"gh-r" as"program"; zplugin light junegunn/fzf-bin
+   zplugin ice as"program" pick"bin/fzf-tmux" src"shell/key-bindings.zsh"; zplugin light junegunn/fzf
+
+   zplugin ice wait"0" blockf; zplugin light zsh-users/zsh-completions
+   zplugin ice wait"0" atload"_zsh_autosuggest_start"; zplugin light zsh-users/zsh-autosuggestions
+
+   zplugin ice wait"0" atinit"zpcompinit; zpcdreplay"; zplugin light zdharma/fast-syntax-highlighting
+   zplugin ice wait"0" atload"zpcompinit; zpcdreplay"; zplugin light ascii-soup/zsh-url-highlighter
+   zplugin ice wait"0" blockf; zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
+   # completions
+   zplugin ice wait"0" as"completion"; zplugin snippet OMZ::plugins/cargo/_cargo
+   zplugin ice wait"0" as"completion"; zplugin light gangleri/pipenv
+
+   typeset -g ENHANCD_DIR=$XDG_DATA_HOME/enhancd ENHANCD_DOT_ARG=... ENHANCD_HYPHEN_ARG=-- ENHANCD_HOME_ARG=%
+   zplugin ice wait"0"; zplugin light b4b4r07/enhancd
+fi
+
+#============#
+# completion #
+#============#
+autoload +X -U compinit && compinit -C -d $XDG_CACHE_HOME/zsh/compdump
+
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end
+
+bindkey '^[[Z' reverse-menu-complete # reverse completion by Shift-Tab
+
+# 補完方法毎にグループ化する。
+zstyle ':completion:*' format '%B%F{blue}%d%f%b'
+zstyle ':completion:*' group-name ''
+
+# 補完侯補をメニューから選択する。
+# select=2: 補完候補を一覧から選択する。補完候補が2つ以上なければすぐに補完する。
+zstyle ':completion:*:default' menu select=2
+
+# 補完候補がなければより曖昧に候補を探す。
+# m:{a-z}={A-Z}: 小文字を大文字に変えたものでも補完する。
+# r:|[._-]=*: 「.」「_」「-」の前にワイルドカード「*」があるものとして補完する。
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' keep-prefix
+zstyle ':completion:*' recent-dirs-insert both
+
+# 補完候補
+# _oldlist 前回の補完結果を再利用する。
+# _complete: 補完する。
+# _match: globを展開しないで候補の一覧から補完する。
+# _history: ヒストリのコマンドも補完候補とする。
+# _ignored: 補完候補にださないと指定したものも補完候補とする。
+# _approximate: 似ている補完候補も補完候補とする。
+# _prefix: カーソル以降を無視してカーソル位置までで補完する。
+zstyle ':completion:*' completer _complete _match _approximate _prefix
+
+# 補完候補をキャッシュする。
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/compcache
+
+# sudo の時にコマンドを探すパス
+zstyle ':completion:*:sudo:*' command-path \
+   /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
+
+# Better SSH/Rsync/SCP Autocomplete
+# source: https://www.codyhiar.com/blog/zsh-autocomplete-with-ssh-config-file/
+zstyle ':completion:*:(scp|rsync):*' tag-order \
+   ' hosts:-ipaddr:ip\ address hosts:-host:host files'
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-host' ignored-patterns \
+   '*(.|:)*' loopback ip6-loopback localhost ip6-localhost broadcasthost
+zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns \
+   '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' \
+   '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
+
+#==============================================================================
+# APPLICATION
+
+stty stop   undef   # Free Ctrl-S
+stty start  undef   # Free Ctrl-Q
+
+# rbenv
+if [[ -d $RBENV_ROOT ]]; then
+   eval "$(rbenv init - | grep -v 'rbenv rehash' | grep -v 'PATH')"
+fi
+
+# pyenv
+if [[ -d $PYENV_ROOT ]]; then
+   eval "$(pyenv init - | grep -v 'pyenv rehash' | grep -v 'PATH')"
+fi
+
+# psql
+[[ -d $XDG_DATA_HOME/psql ]] || mkdir -p $XDG_DATA_HOME/psql
+export PSQL_HISTORY="$XDG_DATA_HOME/psql/history"
+
+# Python
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python3/startup.py"
+
+# Ruby
+export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
+export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
+export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle/config"
+export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle/cache"
+export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/plugin"
+
+# Use neovim as default
+(( ${+commands[nvim]} )) && alias vim="nvim"
+export VIMINIT=":source $XDG_CONFIG_HOME/nvim/init.vim" # Force vim use neovim config
+
+# tmux
+export TMUX_CONF_DIR=$XDG_CONFIG_HOME/tmux
+alias tmux='tmux -f $TMUX_CONF_DIR/tmux.conf'
+
+# less config
+if (( $+commands[lesskey] )); then
+   () {
+      local conf_dir=$XDG_CONFIG_HOME/less
+      local lesskey_conf=$conf_dir/lesskey
+      [[ -f $lesskey_conf ]] || return 0
+      export LESSKEY=$conf_dir/less
+      lesskey $lesskey_conf
+   }
+fi
+
+# Grant safety of rm
+if (( ${+commands[mv2trash]} )); then
+   alias rm='mv2trash'
+else
+   alias rm='rm -i'
+fi
+
+(( ${+commands[tac]} )) || alias tac="tail -r"
+
+alias pps='ps -o pid,pgid,ppid,lwp,nlwp,tty,time,etime,stat,psr,pcpu,euser,args'
+compdef pps='ps'
+
+# Suffix oriented alias
+autoload -U unarchive && alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}='unarchive'
+alias -s {png,jpg,bmp,PNG,JPG,BMP}='open'
+
+autoload -Uz color256
+
+if (( $+commands[git] )); then
+   autoload -Uz git-root
+fi
+
+if (( $+commands[git] && $+commands[fzf] )); then
+   autoload -Uz git-checkout-fzf
+   autoload -Uz git-show-fzf
+fi
+
+compdef zsource='source'
+
+# tmux env update hook
+if [[ -n $TMUX ]]; then
+   autoload -Uz tmux-update-env
+   autoload -Uz add-zsh-hook
+   add-zsh-hook preexec tmux-update-env
+   alias ssh='TERM=${TERM/tmux/xterm} ssh'
+fi
+
+# Attach existing tmux session or create new one
+# https://qiita.com/ssh0/items/a9956a74bff8254a606a
+autoload -Uz is-at-least
+if (( $+commands[tmux] * !$+TMUX )) && is-at-least 5.2.0 && (( ! $+DISABLE_AUTO_TMUX_ATTACH )); then
+   () {
+      # Build session lists
+      # Colons(:) are used as delimiter
+      local -a sess_names
+      local sess_list="$(command tmux list-session 2> /dev/null)"
+      if [[ -n $sess_list ]]; then
+         sess_names+=("${(@f)sess_list}")
+      fi
+      local new_sess_id="c"
+      sess_names+=("$new_sess_id: Create new session")
+      local sess_ids=("${(@f)"$(echo ${(F)sess_names} | cut -d: -f1)"}")
+
+      local sess_id
+      if (( $+commands[fzf] )); then
+         sess_id="$(echo ${(F)sess_names[@]} | fzf | cut -d: -f1)"
+      else
+         print -u 2 -l "[TMUX Manager]" \
+            "Do you want to attach or create tmux session?"
+         print -u 2 -l -x 4 -- "\t"$^sess_names
+         read sess_id\?"Please enter ID (${(j:/:)sess_ids}): "
+      fi
+
+      if [[ "$sess_id" == "$new_sess_id" ]]; then
+         tmux -f "$TMUX_CONF_DIR/tmux.conf" new-session
+      elif (( $+sess_ids[(re)$sess_id] )); then
+         tmux attach-session -d -t "$sess_id"
+      else
+         print -u 2 -- "Unknown ID: $sess_id. Abort."
+         :  # Start terminal normally
+      fi
+   }
+fi
+

@@ -1,0 +1,32 @@
+# user
+[user]
+    useConfigOnly = true
+
+# editorial
+[core]
+    editor = nvim
+    whitespace = cr-at-eol
+[color]
+    ui = auto
+[credential]
+    helper = cache
+
+# default behavior
+[push]
+    default = current
+[fetch]
+    prune = true
+[merge]
+    ff = false
+    tool = nvimdiff
+[mergetool "nvimdiff"]
+    cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+[pull]
+    ff = only
+[diff]
+    compactionHeuristic = true
+
+[include]
+    path = local/config
+
+# vim: ft=gitconfig

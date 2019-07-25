@@ -1,0 +1,25 @@
+#!/usr/bin/env perl
+use File::Which;
+
+$latex        = 'uplatex -synctex=1 -shell-escape';
+$latex_silent = 'uplatex -synctex=1 -shell-escape -interaction=batchmode';
+$bibtex       = 'upbibtex';
+$dvipdf       = 'dvipdfmx %O -o %D %S';
+$makeindex    = 'mendex %O -U -o %D %S';
+$max_repeat   = 5;
+$pdf_mode     = 3;
+
+$pvc_view_file_via_temporary = 0;
+if ($^0 eq 'darwin') {
+   # macOS
+   if (-e '/Applications/Skim.app') {
+      $pdf_previewer = 'open -ga /Applications/Skim.app';
+   } else {
+      $pdf_previewer = 'open -a Preview';
+   }
+} else {
+   # Linux
+   if (which 'evince') {
+      $pdf_previewer = 'evince';
+   }
+}
