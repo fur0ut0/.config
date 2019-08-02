@@ -5,6 +5,8 @@
 !/.gitignore
 !/README.md
 !/link_extra.sh
+!/setup.sh
+!/.init
 
 # Config entities
 !/git/
