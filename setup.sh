@@ -17,6 +17,7 @@ setup_rbenv() {
    mkdir -p "$XDG_DATA_HOME"
    cd "$XDG_DATA_HOME"
    git clone https://github.com/rbenv/rbenv
+   mkdir -p rbenv/plugins
    cd rbenv/plugins
    git clone https://github.com/rbenv/ruby-build
 }
