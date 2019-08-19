@@ -8,7 +8,7 @@ case "$(uname -s)" in
    Linux*)  export OSTYPE=linux ;;
 esac
 
-if [[ $OSTYPE == linux && "$(uname -a)" =~ Microsoft ]]; then
+if [[ $OSTYPE =~ linux && "$(uname -a)" =~ Microsoft ]]; then
    export USING_WSL=1
 
    export LIBGL_ALWAYS_INDIRECT=1
