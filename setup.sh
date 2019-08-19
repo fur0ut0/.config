@@ -24,7 +24,7 @@ setup_rbenv() {
 
 confirm_setup() {
    local name=$1
-   echo "Do you want to setup $name?: "
+   echo -n "Do you want to setup $name?: "
    local response
    read response
    case "$response" in
