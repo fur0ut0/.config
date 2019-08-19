@@ -229,6 +229,12 @@ fi
 
 compdef zsource='source'
 
+# Clipboard compatibility
+if [[ $OSTYPE =~ linux ]] && (( $+commands[xclip] )); then
+   alias pbcopy='xclip -sel c'
+   alias pbpaste='xclip -sel c -o'
+fi
+
 # tmux env update hook
 if [[ -n $TMUX ]]; then
    autoload -Uz tmux-update-env
