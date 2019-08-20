@@ -10,7 +10,9 @@
 
 # Config entities
 !/albert/
+!/compton.conf
 !/git/
+!/i3/
 !/irb/
 !/latexmk/
 !/nvim/
