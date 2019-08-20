@@ -17,5 +17,6 @@
 !/latexmk/
 !/nvim/
 !/python3/
+!/termite/
 !/tmux/
 !/zsh/
