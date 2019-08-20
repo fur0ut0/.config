@@ -9,6 +9,7 @@
 !/.init
 
 # Config entities
+!/albert/
 !/git/
 !/irb/
 !/latexmk/
