@@ -240,7 +240,7 @@ if [[ -n $TMUX ]]; then
    autoload -Uz tmux-update-env
    autoload -Uz add-zsh-hook
    add-zsh-hook preexec tmux-update-env
-   alias ssh='TERM=${TERM/tmux/xterm} ssh'
+   alias ssh='TERM=${TERM%%-italic} ssh'
 fi
 
 # Attach existing tmux session or create new one
