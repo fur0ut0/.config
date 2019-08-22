@@ -8,12 +8,6 @@ repo = 'Shougo/vimproc.vim'
 build = 'make'
 
 
-# colorscheme
-[[plugins]]
-repo = 'float168/vim-colors-halogen-light'
-rev = 'develop'
-
-
 # zenspace highlighting
 [[plugins]]
 repo = 'thinca/vim-zenspace'
