@@ -249,3 +249,18 @@ nmap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cwo
 vmap <leader>* :<C-u>call <SID>VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
 
 filetype indent plugin on
+
+"------------------------------------------------------------------------------
+" Local config
+
+augroup vimrc-local
+   autocmd!
+   autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+   let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+   for i in reverse(filter(files, 'filereadable(v:val)'))
+      source `=i`
+   endfor
+endfunction
