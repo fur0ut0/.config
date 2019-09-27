@@ -16,16 +16,16 @@ function! float#init#deoplete#hook_source()
    smap <expr><C-j> neosnippet#mappings#expand_or_jump_impl()
    xmap <expr><C-j> neosnippet#mappings#expand_impl()
 
-   imap <expr><CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+   inoremap <expr><CR>  pumvisible() ? "\<C-y>" : "\<CR>"
    imap <expr><TAB> pumvisible() ? "\<C-n>" :
    \  neosnippet#expandable_or_jumpable() ?
    \  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-   imap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+   inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
    imap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
    imap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
 
-   noremap <expr><C-g> deoplete#undo_completion()
+   map <expr><C-g> deoplete#undo_completion()
 
    call deoplete#custom#var('omni', 'input_patterns', {
    \  'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
