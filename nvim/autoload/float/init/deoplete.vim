@@ -12,14 +12,18 @@ function! float#init#deoplete#hook_source()
    let g:deoplete#enable_refresh_always = 0
    let g:deoplete#file#enable_buffer_path = 1
 
-   inoremap <expr><CR>  pumvisible() ? "\<C-y>" : "\<CR>"
-   inoremap <expr><TAB> pumvisible() ? "\<C-n>" :
+   imap <expr><C-j> neosnippet#mappings#expand_or_jump_impl()
+   smap <expr><C-j> neosnippet#mappings#expand_or_jump_impl()
+   xmap <expr><C-j> neosnippet#mappings#expand_impl()
+
+   imap <expr><CR>  pumvisible() ? "\<C-y>" : "\<CR>"
+   imap <expr><TAB> pumvisible() ? "\<C-n>" :
    \  neosnippet#expandable_or_jumpable() ?
    \  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-   inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+   imap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+   imap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+   imap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
 
    noremap <expr><C-g> deoplete#undo_completion()
 

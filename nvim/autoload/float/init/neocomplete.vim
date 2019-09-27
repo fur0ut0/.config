@@ -17,30 +17,21 @@ function! float#init#neocomplete#hook_source()
    endif
    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+   imap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-   inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+   imap <expr><C-j> neosnippet#mappings#expand_or_jump_impl()
+   smap <expr><C-j> neosnippet#mappings#expand_or_jump_impl()
+   xmap <expr><C-j> neosnippet#mappings#expand_impl()
 
-   inoremap <expr><C-k> neosnippet#mappings#expand_or_jump_impl()
-   snoremap <expr><C-k> neosnippet#mappings#expand_or_jump_impl()
-   xnoremap <expr><C-k> neosnippet#mappings#expand_impl()
+   imap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+   imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-   inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-   inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-   inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-   inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplete#manual_omni_complete()
+   imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+   imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+   imap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplete#manual_omni_complete()
    noremap <expr><C-g> neocomplete#undo_completion()
 
-
    autocmd BufReadPost,BufEnter,BufWritePost :neocompleteCachingBuffer <buffer>
-
-   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-   autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
    " Enable heavy omni completion.
    if !exists('g:neocomplete#sources#omni#input_patterns')
