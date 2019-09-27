@@ -1,6 +1,7 @@
-function! float#init#coc#hook_post_update() abort
+function! float#init#coc#install_plugins() abort
    :CocInstall coc-solargraph
    :CocInstall coc-python
+   :CocInstall coc-neosnippet
 endfunction
 
 function! float#init#coc#hook_add() abort
