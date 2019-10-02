@@ -160,11 +160,13 @@ stty start  undef   # Free Ctrl-Q
 # rbenv
 if [[ -d $RBENV_ROOT ]]; then
    eval "$(rbenv init - | grep -v 'rbenv rehash' | grep -v 'PATH')"
+   autoload -Uz rbenv-update
 fi
 
 # pyenv
 if [[ -d $PYENV_ROOT ]]; then
    eval "$(pyenv init - | grep -v 'pyenv rehash' | grep -v 'PATH')"
+   autoload -Uz pyenv-update
 fi
 
 # psql
