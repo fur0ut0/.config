@@ -1,13 +1,14 @@
 {
   "languageserver": {
-    "cquery": {
-      "command": "cquery",
-      "args": ["--log-file=/tmp/cq.log"],
-      "filetypes": ["c", "cpp", "cuda"],
-      "rootPatterns": [".cquery","compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
+      "rootPatterns": [".ccls-root", "compile_commands.json"],
       "initializationOptions": {
-        "cacheDirectory": "/tmp/cquery"
-      }
+         "cache": {
+           "directory": ".ccls-cache"
+         }
+       }
     }
   }
 }
