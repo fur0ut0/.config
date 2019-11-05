@@ -1,8 +1,7 @@
 # for Language Server interface
 compile_commands.json
 .cquery
-.ccls
-.ccls-cache
+.ccls*
 .*.vimrc
 
 
