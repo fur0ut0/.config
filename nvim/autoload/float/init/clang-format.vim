@@ -5,6 +5,4 @@ function! float#init#clang-format#hook_source() abort
       \ "AllowShortIfStatementsOnASingleLine" : "true",
       \ "AlwaysBreakTemplateDeclarations" : "true",
       \ "Standard" : "C++17"}
-
-   autocmd FileType c,cpp ClangFormatAutoEnable
 endfunction
