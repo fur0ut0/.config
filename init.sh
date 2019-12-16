@@ -32,7 +32,13 @@ mkdir -p "$nvim_color_dir"
 for repos_name in ${repos_names[@]}; do
    dirname="$(basename $repos_name .git)"
    if [[ ! -e "$nvim_color_dir/$dirname" ]]; then
-      git clone "https://github.com/$repos_name" "$nvim_color_dir/$dirname" -b develop
+      yes | ssh -T git@github.com > /dev/null 2>&1
+      if [[ $? == 1 ]]; then
+         url="git@github.com:$repos_name"
+      else
+         url="https://github.com/$repos_name"
+      fi
+      git clone "$url" "$nvim_color_dir/$dirname" -b develop
    fi
    for colorscheme in "$nvim_color_dir/$dirname/colors"/*.vim; do
       ln -sfv "$colorscheme" "$nvim_color_dir/$(basename $colorscheme)"
