@@ -135,7 +135,7 @@ colorscheme halogen-light
 
 " 80文字制限ラインを可視化
 if (exists('+colorcolumn'))
-   set colorcolumn=80
+   set colorcolumn=80,100
 endif
 
 "------------------------------------------------------------------------------
