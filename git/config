@@ -12,8 +12,6 @@
     helper = cache
 
 # default behavior
-[push]
-    default = current
 [fetch]
     prune = true
 [merge]
