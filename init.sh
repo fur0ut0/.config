@@ -31,8 +31,8 @@ nvim_color_dir="$script_root/nvim/colors"
 mkdir -p "$nvim_color_dir"
 for repos_name in ${repos_names[@]}; do
    dirname="$(basename $repos_name .git)"
-   if [[ ! -e "$nvim_color_dir/$dirname" ]]; then
-      yes | ssh -T git@github.com > /dev/null 2>&1
+   if [[ ! -d "$nvim_color_dir/$dirname" ]]; then
+      yes | ssh -T git@github.com > /dev/null 2>&1 && :
       if [[ $? == 1 ]]; then
          url="git@github.com:$repos_name"
       else
