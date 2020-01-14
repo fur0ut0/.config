@@ -58,3 +58,12 @@ if [[ -z $DISPLAY && -z $SSH_CONNECTION ]]; then
    export DISPLAY=localhost:0.0
 fi
 
+# Run command with CJK-friendly wcwidth(3) to fix ambiguous width chars
+# https://github.com/fumiyas/wcwidth-cjk
+WCWIDTH_CJK=/usr/local/lib/wcwidth-cjk.so
+if [[ -f $WCWIDTH_CJK ]]; then
+   export LD_PRELOAD=$WCWIDTH_CJK
+else
+   unset $WCWIDTH_CJK
+fi
+
