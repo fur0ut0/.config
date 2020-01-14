@@ -2,8 +2,10 @@
 compile_commands.json
 .cquery
 .ccls*
-.*.vimrc
 
+# Editor
+.*.vimrc
+.vscode
 
 # Created by https://www.gitignore.io/api/linux,macos,windows
 
