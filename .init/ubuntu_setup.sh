@@ -28,3 +28,5 @@ setup_ruby_dependencies() {
 setup_python_dependencies
 setup_ruby_dependencies
 
+./ubuntu/wm_keybind.zsh
+
