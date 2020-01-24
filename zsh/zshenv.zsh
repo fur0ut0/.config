@@ -64,6 +64,6 @@ WCWIDTH_CJK=/usr/local/lib/wcwidth-cjk.so
 if [[ -f $WCWIDTH_CJK ]]; then
    export LD_PRELOAD=$WCWIDTH_CJK
 else
-   unset $WCWIDTH_CJK
+   unset WCWIDTH_CJK
 fi
 
