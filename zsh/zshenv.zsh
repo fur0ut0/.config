@@ -51,6 +51,17 @@ else
    unset CARGO_HOME
 fi
 
+# ccls
+if [[ -z $CCLS_ROOT ]]; then
+   CCLS_ROOT=$HOME/.local/src/ccls
+fi
+if [[ -d $CCLS_ROOT ]]; then
+   export CCLS_ROOT
+   add-to-env path $CCLS_ROOT/Release
+else
+   unset CCLS_ROOT
+fi
+
 # Fix umask for Windows Subsystem Linux
 [[ "$(umask)" = "000" ]] && umask 022
 
