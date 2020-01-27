@@ -1,10 +1,23 @@
 #!/usr/bin/env bash
 set -eu
 
+script_root="$(cd $(dirname "$0"); pwd)"
+
 if [[ ! "$(lsb_release -a 2>/dev/null)" =~ Ubuntu ]]; then
    echo "Not Ubuntu, abort" 2> /dev/null
    exit 1
 fi
+
+confirm_setup() {
+   local name=$1
+   echo -n "Do you want to setup $name?: "
+   local response
+   read response
+   case "$response" in
+      [yY]*) eval setup_$name ;;
+      *) ;;
+   esac
+}
 
 setup_python_dependencies() {
    # Python3
@@ -25,8 +38,8 @@ setup_ruby_dependencies() {
 #------------------------------------------------------------------------------
 # Main
 
-setup_python_dependencies
-setup_ruby_dependencies
+confirm_setup python_dependencies
+confirm_setup ruby_dependencies
 
-./ubuntu/wm_keybind.zsh
+${script_root}/ubuntu/wm_keybind.zsh
 
