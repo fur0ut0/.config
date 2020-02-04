@@ -92,3 +92,11 @@ hook_add = '''
     let g:clang_format#auto_format = 1
 '''
 
+[[plugins]]
+repo = 'ruby-formatter/rufo-vim'
+on_ft = [ 'ruby' ]
+hook_source = 'call float#init#rufo#hook_source()'
+hook_add = '''
+    let g:rufo_auto_formatting = 1
+'''
+
