@@ -1,6 +1,7 @@
 function! float#init#coc#install_plugins() abort
    :CocInstall coc-solargraph
    :CocInstall coc-python
+   :CocInstall coc-snippets
    :CocInstall coc-neosnippet
 endfunction
 
@@ -22,67 +23,46 @@ function! float#init#coc#hook_add() abort
       return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
    endfunction
 
-   " Use `[c` and `]c` for navigate diagnostics
-   nmap <silent> [Coc]p <Plug>(coc-diagnostic-prev)
-   nmap <silent> [Coc]n <Plug>(coc-diagnostic-next)
+   " Highlight symbol under cursor on CursorHold
+   autocmd CursorHold * silent call CocActionAsync('highlight')
 
-   " Remap keys for gotos
+   "---------------------------------------------------------------------------
+   " Keymap
+
+   " Diagnostic
+   nmap <silent> [Coc]dp <Plug>(coc-diagnostic-prev)
+   nmap <silent> [Coc]dn <Plug>(coc-diagnostic-next)
+
+   " Jump to relevant elements
    nmap <silent> [Coc]gd <Plug>(coc-definition)
    nmap <silent> [Coc]gy <Plug>(coc-type-definition)
    nmap <silent> [Coc]gi <Plug>(coc-implementation)
    nmap <silent> [Coc]gr <Plug>(coc-references)
    nmap <silent> [Coc]gf <Plug>(coc-openlink)
 
-   " Use K for show documentation in preview window
-   nnoremap <silent> K :call <SID>show_documentation()<CR>
-   function! s:show_documentation()
-      if &filetype == 'vim'
-         execute 'h '.expand('<cword>')
-      else
-         call CocAction('doHover')
-      endif
-   endfunction
+   " Selection
+   vmap <silent> [Coc]sif <Plug>(coc-funcobj-i)
+   vmap <silent> [Coc]saf <Plug>(coc-funcobj-a)
 
-   " Highlight symbol under cursor on CursorHold
-   autocmd CursorHold * silent call CocActionAsync('highlight')
-
-   " Remap for rename current word
-   nmap [Coc]rn <Plug>(coc-rename)
-
-   " Remap for format selected region
-   vmap [Coc]f  <Plug>(coc-format-selected)
-   nmap [Coc]f  <Plug>(coc-format-selected)
-
-   " Remap for do codeAction of selected region, ex: `[Coc]aap` for current paragraph
-   vmap [Coc]a  <Plug>(coc-codeaction-selected)
-   nmap [Coc]a  <Plug>(coc-codeaction-selected)
-
-   " Remap for do codeAction of current line
-   nmap [Coc]ac <Plug>(coc-codeaction)
-   " Fix autofix problem of current line
-   nmap [Coc]qf <Plug>(coc-fix-current)
-
-   " Use `:Format` for format current buffer
-   command! -nargs=0 Format :call CocAction('format')
-
-   " Use `:Fold` for fold current buffer
-   command! -nargs=? Fold   :call CocAction('fold', <f-args>)
+   " Modification
+   nmap [Coc]mr <Plug>(coc-rename)
+   nmap [Coc]mf <Plug>(coc-fix-current)
 
    " Using CocList
    " Show all diagnostics
-   nnoremap <silent> [Coc]ca :<C-u>CocList diagnostics<cr>
+   nnoremap <silent> [Coc]la :<C-u>CocList diagnostics<cr>
    " Manage extensions
-   nnoremap <silent> [Coc]ce :<C-u>CocList extensions<cr>
+   nnoremap <silent> [Coc]le :<C-u>CocList extensions<cr>
    " Show commands
-   nnoremap <silent> [Coc]cc :<C-u>CocList commands<cr>
+   nnoremap <silent> [Coc]lc :<C-u>CocList commands<cr>
    " Find symbol of current document
-   nnoremap <silent> [Coc]co :<C-u>CocList outline<cr>
+   nnoremap <silent> [Coc]lo :<C-u>CocList outline<cr>
    " Search workspace symbols
-   nnoremap <silent> [Coc]cs :<C-u>CocList -I symbols<cr>
+   nnoremap <silent> [Coc]ls :<C-u>CocList -I symbols<cr>
    " Do default action for next item.
-   nnoremap <silent> [Coc]cj :<C-u>CocNext<CR>
+   nnoremap <silent> [Coc]ln :<C-u>CocNext<CR>
    " Do default action for previous item.
-   nnoremap <silent> [Coc]ck :<C-u>CocPrev<CR>
+   nnoremap <silent> [Coc]lp :<C-u>CocPrev<CR>
    " Resume latest coc list
-   nnoremap <silent> [Coc]cp :<C-u>CocListResume<CR>
+   nnoremap <silent> [Coc]lr :<C-u>CocListResume<CR>
 endfunction
