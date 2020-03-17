@@ -15,6 +15,7 @@
 !/i3/
 !/irb/
 !/latexmk/
+!/mypy/
 !/nvim/
 !/python3/
 !/termite/
