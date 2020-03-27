@@ -1,31 +1,32 @@
 # user
 [user]
-    useConfigOnly = true
+   useConfigOnly = true
 
 # editorial
 [core]
-    editor = nvim
-    whitespace = cr-at-eol
+   editor = nvim
+   whitespace = cr-at-eol
+   quotepath = false
 [color]
-    ui = auto
+   ui = auto
 [credential]
-    helper = cache
+   helper = cache
 
 # default behavior
 [fetch]
-    prune = true
+   prune = true
 [merge]
-    ff = false
-    tool = nvimdiff
+   ff = false
+   tool = nvimdiff
 [mergetool "nvimdiff"]
-    cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+   cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 [pull]
-    ff = only
+   ff = only
 [diff]
-    compactionHeuristic = true
+   compactionHeuristic = true
 
 [include]
-    path = local/config
+   path = local/config
 
 [filter "lfs"]
    process = git-lfs filter-process
