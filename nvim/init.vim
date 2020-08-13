@@ -231,6 +231,10 @@ nnoremap <C-k>P :<C-u>cprev<CR>
 nnoremap <C-c> <C-c>:<C-u>syntax sync fromstart<CR>
 nnoremap <C-l> <C-l>:<C-u>nohlsearch<CR>
 
+inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
 " Esc: neovim terminalを抜ける
 if has("nvim")
    tnoremap <silent> <ESC> <C-\><C-n>
