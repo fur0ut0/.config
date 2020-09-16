@@ -57,11 +57,11 @@ on_i = 1
 
 
 # deoplete
-#[[plugins]]
-#repo = 'Shougo/deoplete.nvim'
-#if = 'has("nvim")'
-#on_i = 1
-#hook_source = 'call float#init#deoplete#hook_source()'
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if = 'has("nvim")'
+on_i = 1
+hook_source = 'call float#init#deoplete#hook_source()'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'

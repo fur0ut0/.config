@@ -79,9 +79,8 @@ hook_add = 'call float#init#fzf#hook_add()'
 
 # Language Server Protocol (LSP)
 [[plugins]]
-repo = 'neoclide/coc.nvim'
-if = 'has("nvim")'
-build = './install.sh nightly'
-hook_add = 'call float#init#coc#hook_add()'
-hook_post_update = 'call float#init#coc#install_plugins()'
+repo = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+hook_source = 'call float#init#language_client#hook_source()'
 
