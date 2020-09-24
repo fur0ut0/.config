@@ -66,7 +66,13 @@ fi
 [[ "$(umask)" = "000" ]] && umask 022
 
 if [[ -z $DISPLAY && -z $SSH_CONNECTION ]]; then
-   export DISPLAY=localhost:0.0
+   if [[ -v WSL_INTEROP ]]; then
+      # WSL2
+      export DISPLAY="$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2> /dev/null):0"
+      export LIBGL_ALWAYS_INDIRECT=1
+   else
+      export DISPLAY=localhost:0.0
+   fi
 fi
 
 # Run command with CJK-friendly wcwidth(3) to fix ambiguous width chars
