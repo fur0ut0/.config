@@ -36,10 +36,12 @@ confirm_setup() {
 #------------------------------------------------------------------------------
 # Main
 
-case "$(uname -s )" in
-   Darwin*) "$script_root/.init/macos_setup.sh" ;;
-   Linux*)  "$script_root/.init/linux_setup.sh" ;;
-esac
+if [[ -v SETUP_DISTRIB ]]; then
+   case "$(uname -s )" in
+      Darwin*) "$script_root/.init/macos_setup.sh" ;;
+      Linux*)  "$script_root/.init/linux_setup.sh" ;;
+   esac
+fi
 
 if ! which pyenv > /dev/null 2>&1; then
    confirm_setup pyenv
