@@ -1,6 +1,7 @@
 function! float#init#language_client#hook_source() abort
    let g:LanguageClient_serverCommands = {
    \  'cpp': ['ccls'],
+   \  'rust': ['rls'],
    \}
 
    "---------------------------------------------------------------------------
@@ -17,4 +18,5 @@ function! float#init#language_client#hook_source() abort
 
    " Modification
    nmap [LS]<F2> <Plug>(lcn-rename)
+   nmap [LS]f <Plug>(lcn-format)
 endfunction
