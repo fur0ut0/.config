@@ -1,7 +1,9 @@
 function! float#init#language_client#hook_source() abort
    let g:LanguageClient_serverCommands = {
+   \  'c': ['ccls'],
    \  'cpp': ['ccls'],
    \  'rust': ['rls'],
+   \  'python': ['pyls'],
    \}
 
    "---------------------------------------------------------------------------
