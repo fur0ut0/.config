@@ -1,9 +1,10 @@
-function! float#init#language_client#hook_source() abort
+function! float#init#language_client#hook_add() abort
    let g:LanguageClient_serverCommands = {
    \  'c': ['ccls'],
    \  'cpp': ['ccls'],
    \  'rust': ['rls'],
    \  'python': ['pyls'],
+   \  'ruby': ['solargraph'],
    \}
 
    "---------------------------------------------------------------------------

@@ -82,7 +82,7 @@ hook_add = 'call float#init#fzf#hook_add()'
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 build = 'bash install.sh'
-hook_source = 'call float#init#language_client#hook_source()'
+hook_add = 'call float#init#language_client#hook_add()'
 
 
 # formatter
