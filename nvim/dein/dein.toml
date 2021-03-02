@@ -84,3 +84,9 @@ rev = 'next'
 build = 'bash install.sh'
 hook_source = 'call float#init#language_client#hook_source()'
 
+
+# formatter
+[[plugins]]
+repo = 'Chiel92/vim-autoformat'
+hook_add = 'call float#init#language_client#hook_add()'
+

@@ -84,20 +84,3 @@ on_source = [ 'neosnippet.vim', ]
 repo = 'cespare/vim-toml'
 on_ft = [ 'toml', ]
 
-[[plugins]]
-repo = 'rhysd/vim-clang-format'
-on_ft = [ 'c', 'cpp' ]
-hook_source = 'call float#init#clang-format#hook_source()'
-hook_add = '''
-   nnoremap <silent> [ClangFormat] :<C-u>ClangFormat<cr>
-   nmap     [Myplug]p [ClangFormat]
-'''
-
-[[plugins]]
-repo = 'ruby-formatter/rufo-vim'
-on_ft = [ 'ruby' ]
-hook_source = 'call float#init#rufo#hook_source()'
-hook_add = '''
-    let g:rufo_auto_formatting = 1
-'''
-
