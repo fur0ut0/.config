@@ -4,7 +4,7 @@ function! float#init#language_client#hook_add() abort
    \  'cpp': ['ccls'],
    \  'rust': ['rls'],
    \  'python': ['pyls'],
-   \  'ruby': ['solargraph'],
+   \  'ruby': ['solargraph', 'stdio'],
    \}
 
    "---------------------------------------------------------------------------
