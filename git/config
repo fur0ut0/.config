@@ -12,6 +12,9 @@
 [credential]
    helper = cache
 
+[alias]
+   cof = !git branch -a | fzf | xargs git checkout
+
 # default behavior
 [fetch]
    prune = true
