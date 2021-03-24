@@ -81,8 +81,8 @@ hook_add = 'call float#init#fzf#hook_add()'
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
-build = 'bash install.sh'
 hook_add = 'call float#init#language_client#hook_add()'
+hook_post_update = 'call float#init#language_client#hook_post_update()'
 
 
 # formatter

@@ -29,3 +29,12 @@ function! float#init#language_client#hook_add() abort
    nmap [LS]<F2> <Plug>(lcn-rename)
    nmap [LS]f <Plug>(lcn-format)
 endfunction
+
+function! float#init#language_client#hook_post_update() abort
+   if has('win32') || has('win64')
+      call system(
+      \ 'powershell -executionpolicy bypass -File install.ps1')
+   else
+      call system('bash install.sh')
+   endif
+endfunction
