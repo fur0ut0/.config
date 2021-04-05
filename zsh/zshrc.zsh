@@ -222,6 +222,10 @@ alias -s {png,jpg,bmp,PNG,JPG,BMP}='open'
 
 autoload -Uz color256
 
+if (( $+commands[sshfs] )); then
+   autoload -Uz sshmount
+fi
+
 if (( $+commands[git] )); then
    autoload -Uz git-root
 fi
