@@ -87,6 +87,8 @@ if (( $+functions[zinit] )); then
    zinit ice wait"0" atload"zpcompinit; zpcdreplay"; zinit light ascii-soup/zsh-url-highlighter
    zinit ice wait"0" blockf; zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
+   zinit ice wait"0"; zinit light mollifier/zload
+
    # completions
    zinit ice wait"0" as"completion"; zinit snippet OMZ::plugins/cargo/_cargo
    zinit ice wait"0" as"completion"; zinit light gangleri/pipenv
