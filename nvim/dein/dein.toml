@@ -2,6 +2,11 @@
 repo = 'Shougo/dein.vim'
 
 
+# color
+[[plugins]]
+repo = 'dracula/vim'
+
+
 # asynchronous execution
 [[plugins]]
 repo = 'Shougo/vimproc.vim'

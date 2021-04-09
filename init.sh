@@ -24,7 +24,6 @@ done
 echo "==> Bind colorscheme packages"
 
 declare -a repos_names=(
-   float168/vim-colors-halogen-light
 )
 
 nvim_color_dir="$script_root/nvim/colors"
