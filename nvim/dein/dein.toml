@@ -4,7 +4,7 @@ repo = 'Shougo/dein.vim'
 
 # color
 [[plugins]]
-repo = 'dracula/vim'
+repo = 'fur0ut0/vim-colors-dracula'
 
 
 # asynchronous execution

@@ -37,7 +37,7 @@ for repos_name in ${repos_names[@]}; do
       else
          url="https://github.com/$repos_name"
       fi
-      git clone "$url" "$nvim_color_dir/$dirname" -b develop
+      git clone "$url" "$nvim_color_dir/$dirname"
    fi
    for colorscheme in "$nvim_color_dir/$dirname/colors"/*.vim; do
       ln -sfv "$colorscheme" "$nvim_color_dir/$(basename $colorscheme)"
