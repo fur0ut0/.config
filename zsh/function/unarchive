@@ -17,6 +17,6 @@ case $1 in
 *.Z)                uncompress $1 ;;
 *.tar)              tar xvf $1 ;;
 *.arj)              unarj $1 ;;
-*.7z)               7z $1 ;;
+*.7z)               7z x -o${1:t:r} $1 ;;
 *)                  echo "Unknown file type: $1" >&2
 esac
