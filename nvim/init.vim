@@ -129,9 +129,19 @@ let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
-set background=dark
-syntax on
-colorscheme dracula
+try
+   source $XDG_CONFIG_HOME/nvim/local/colormode.vim
+catch
+endtry
+if exists('g:colormode') && g:colormode == "dark"
+   set background=dark
+   syntax on
+   colorscheme dracula
+else
+   set background=light
+   syntax on
+   colorscheme halogen-light
+endif
 
 " 80文字制限ラインを可視化
 if (exists('+colorcolumn'))

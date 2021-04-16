@@ -6,6 +6,10 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'fur0ut0/vim-colors-dracula'
 
+[[plugins]]
+repo = 'fur0ut0/vim-colors-halogen-light'
+branch = 'devel'
+
 
 # asynchronous execution
 [[plugins]]
