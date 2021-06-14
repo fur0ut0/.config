@@ -16,6 +16,8 @@
    cof = !git branch -a | fzf | xargs git checkout
 
 # default behavior
+[commit]
+   verbose = true
 [fetch]
    prune = true
 [merge]
