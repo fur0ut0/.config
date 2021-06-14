@@ -165,6 +165,10 @@ if [[ -d $RBENV_ROOT ]]; then
    autoload -Uz rbenv-update
 fi
 
+if [[ -v WSL_INTEROP ]]; then
+   autoload -Uz daemonize-wsl-systemd nsenter-wsl-systemd
+fi
+
 # pyenv
 if [[ -d $PYENV_ROOT ]]; then
    eval "$(pyenv init - | grep -v 'pyenv rehash' | grep -v 'PATH')"
