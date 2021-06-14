@@ -8,7 +8,9 @@ case "$(uname -s)" in
    Linux*)  export OSTYPE=linux ;;
 esac
 
-if [[ $OSTYPE =~ linux && "$(uname -a)" =~ Microsoft ]]; then
+
+setopt extended_glob
+if [[ $OSTYPE =~ linux && "$(uname -a)" =~ (#i)microsoft ]]; then
    export USING_WSL=1
 
    export LIBGL_ALWAYS_INDIRECT=1
@@ -18,4 +20,5 @@ if [[ $OSTYPE =~ linux && "$(uname -a)" =~ Microsoft ]]; then
 
    cd
 fi
+setopt noextended_glob
 
