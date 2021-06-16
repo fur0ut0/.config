@@ -80,8 +80,11 @@ for name in $names; do
          return 1
       fi
 
-      fusermount -u $local_dir
-      print -u 2 -P -- "%F{green}Successfully unmounted: $local_dir%f"
+      if fusermount -u $local_dir; then
+         print -u 2 -P -- "%F{green}Successfully unmounted: $local_dir%f"
+      else
+         print -u 2 -P -- "%F{red}Failed to unmount: $local_dir%f"
+      fi
    else
       if (( ! $not_mounted )); then
          print -u 2 -P -- "%F{red}Already mounted: $local_dir%f"
@@ -89,8 +92,11 @@ for name in $names; do
       fi
 
       mkdir -p $local_dir
-      sshfs $host:$remote_dir $local_dir $opts
-      print -u 2 -P -- "%F{green}Successfully mounted: $local_dir ($remote_dir)%f"
+      if sshfs $host:$remote_dir $local_dir $opts; then
+         print -u 2 -P -- "%F{green}Successfully mounted: $local_dir ($host:$remote_dir)%f"
+      else
+         print -u 2 -P -- "%F{red}Failed to mount: $host:$remote_dir%f"
+      fi
    fi
 done
 
