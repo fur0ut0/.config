@@ -32,7 +32,7 @@ setup_python_dependencies() {
 setup_ruby_dependencies() {
    sudo apt-get install -y autoconf bison build-essential libssl-dev \
       libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev \
-      libgdbm5 libgdbm-dev
+      libgdbm6 libgdbm-dev
 }
 
 #------------------------------------------------------------------------------
