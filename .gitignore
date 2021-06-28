@@ -21,3 +21,5 @@
 !/termite/
 !/tmux/
 !/zsh/
+
+!/*.terminfo
