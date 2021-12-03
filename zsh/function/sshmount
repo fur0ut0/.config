@@ -80,7 +80,7 @@ for name in $names; do
          return 1
       fi
 
-      if fusermount -u $local_dir; then
+      if fusermount -uz $local_dir; then
          print -u 2 -P -- "%F{green}Successfully unmounted: $local_dir%f"
       else
          print -u 2 -P -- "%F{red}Failed to unmount: $local_dir%f"
