@@ -16,6 +16,8 @@
    cof = !git branch -a | fzf | xargs git checkout
 
 # default behavior
+[init]
+   defaultBranch = main
 [commit]
    verbose = true
 [fetch]
