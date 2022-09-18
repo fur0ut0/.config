@@ -1,4 +1,2 @@
-/colors/*
-/colors/.gitkeep
-/dein/local/*
 /local/*
+/plugin/packer_compiled.lua
