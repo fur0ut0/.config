@@ -39,9 +39,9 @@ return packer.startup(function(use)
    use({'dracula/vim'})
 
    -- statusline
-   use({'feline-nvim/feline.nvim', config = function() require('plugins/feline') end})
+   use({'feline-nvim/feline.nvim', config = function() require('plugins.feline') end})
    use({'kyazdani42/nvim-web-devicons'})
-   use({'lewis6991/gitsigns.nvim', tag = 'release', config = function() require('plugins/gitsigns') end})
+   use({'lewis6991/gitsigns.nvim', tag = 'release', config = function() require('plugins.gitsigns') end})
 
    -- display
    use({'thinca/vim-zenspace'})
