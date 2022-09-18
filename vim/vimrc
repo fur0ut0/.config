@@ -12,17 +12,14 @@ if $XDG_DATA_HOME == ''
    let $XDG_DATA_HOME = expand('$HOME/.local/share')
 endif
 
-" Vim compatibility
-if !has('nvim')
-   if !isdirectory(expand("$XDG_CACHE_HOME/vim"))
-      call mkdir(expand("$XDG_CACHE_HOME/vim"), "p")
-   endif
-   set undodir=$XDG_CACHE_HOME/vim/undo
-   set directory=$XDG_CACHE_HOME/vim/swap
-   set backupdir=$XDG_CACHE_HOME/vim/backup
-   set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
-   set runtimepath=$XDG_CONFIG_HOME/nvim,$VIMRUNTIME,$XDG_CONFIG_HOME/nvim/after
+if !isdirectory(expand("$XDG_CACHE_HOME/vim"))
+   call mkdir(expand("$XDG_CACHE_HOME/vim"), "p")
 endif
+set undodir=$XDG_CACHE_HOME/vim/undo
+set directory=$XDG_CACHE_HOME/vim/swap
+set backupdir=$XDG_CACHE_HOME/vim/backup
+set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
+set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
 " Basic
 set history=200
@@ -60,16 +57,16 @@ set hlsearch
 set conceallevel=0
 
 " Statusline
-set laststatus=2
-set statusline=%F
-set statusline+=%m
-set statusline+=%r
-set statusline+=%h
-set statusline+=%w
-set statusline+=%=
-set statusline+=%y
-set statusline+=[%{&fileencoding}]
-set statusline+=[%l/%L,%c/%{strlen(getline('.'))}]
+"set laststatus=2
+"set statusline=%F
+"set statusline+=%m
+"set statusline+=%r
+"set statusline+=%h
+"set statusline+=%w
+"set statusline+=%=
+"set statusline+=%y
+"set statusline+=[%{&fileencoding}]
+"set statusline+=[%l/%L,%c/%{strlen(getline('.'))}]
 
 "------------------------------------------------------------------------------
 " Plugin
@@ -85,7 +82,7 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 if dein#load_state(s:dein_dir)
    call dein#begin(s:dein_dir)
 
-   let s:toml_dir = expand('$XDG_CONFIG_HOME/nvim/dein')
+   let s:toml_dir = expand('$XDG_CONFIG_HOME/vim/dein')
 
    " Global
    let s:toml = s:toml_dir . '/dein.toml'
@@ -130,17 +127,17 @@ let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 set termguicolors
 
 try
-   source $XDG_CONFIG_HOME/nvim/local/colormode.vim
+   source $XDG_CONFIG_HOME/vim/local/colormode.vim
 catch
 endtry
-if exists('g:colormode') && g:colormode == "dark"
-   set background=dark
-   syntax on
-   colorscheme dracula
-else
+if exists('g:colormode') && g:colormode == "light"
    set background=light
    syntax on
    colorscheme halogen-light
+else
+   set background=dark
+   syntax on
+   colorscheme dracula
 endif
 
 " 80文字制限ラインを可視化
@@ -244,11 +241,6 @@ nnoremap <C-l> <C-l>:<C-u>nohlsearch<CR>
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-" Esc: neovim terminalを抜ける
-if has("nvim")
-   tnoremap <silent> <ESC> <C-\><C-n>
-endif
 
 " makes * and # work on visual mode too.
 " From http://got-ravings.blogspot.com/2008/07/vim-pr0n-visual-search-mappings.html

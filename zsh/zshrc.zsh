@@ -190,8 +190,11 @@ export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle/cache"
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/plugin"
 
 # Use neovim as default
-(( ${+commands[nvim]} )) && alias vim="nvim"
-export VIMINIT=":source $XDG_CONFIG_HOME/nvim/init.vim" # Force vim use neovim config
+if (( ${+commands[nvim]} )); then
+   alias vim="nvim"
+else
+   export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
+fi
 
 # tmux
 export TMUX_CONF_DIR=$XDG_CONFIG_HOME/tmux

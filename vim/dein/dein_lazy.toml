@@ -5,12 +5,6 @@ if = '!has("nvim")'
 on_cmd = [ 'Unite', 'UniteResume', ]
 
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-if = 'has("nvim")'
-hook_add = 'call float#init#denite#hook_add()'
-on_cmd = [ 'Denite', 'DeniteResume', ]
-
-[[plugins]]
 repo = 'Shougo/neomru.vim'
 on_cmd = [ 'Unite', 'UniteResume', 'DeniteResume', 'DeniteResume', ]
 
@@ -55,13 +49,6 @@ on_source = [ 'vim-quickrun', ]
 repo = 'cohama/lexima.vim'
 on_i = 1
 
-
-# deoplete
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-if = 'has("nvim")'
-on_i = 1
-hook_source = 'call float#init#deoplete#hook_source()'
 
 [[plugins]]
 repo = 'Shougo/neocomplete.vim'
