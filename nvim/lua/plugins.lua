@@ -39,6 +39,7 @@ return packer.startup(function(use)
    use({'thinca/vim-zenspace'})
    use({'bronson/vim-trailing-whitespace'})
    use({'nathanaelkane/vim-indent-guides', config = function() require('plugins.indent_guides') end})
+   use({'tpope/vim-sleuth'})
 
    -- operation
    use({'cohama/lexima.vim'})
