@@ -50,7 +50,7 @@ return packer.startup(function(use)
 
    -- operation
    use({'cohama/lexima.vim'})
-   use({'junegunn/vim-easy-align'})
+   use({'junegunn/vim-easy-align', config = function() require('plugins.easy_align') end})
    use({'tpope/vim-surround'})
    use({'tpope/vim-repeat'})
    use({'tpope/vim-fugitive'})
