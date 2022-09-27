@@ -1,4 +1,5 @@
 local cmp = require('cmp')
+local lspkind = require('lspkind')
 
 cmp.setup({
    sources = {{name = 'nvim_lsp'}, {name = 'buffer'}, {name = 'path'}},
@@ -23,7 +24,13 @@ cmp.setup({
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm {select = true}
    }),
-   experimental = {ghost_text = true}
+   experimental = {ghost_text = true},
+   formatting = {
+      format = lspkind.cmp_format({
+         mode = 'symbol', -- show only symbol annotations
+         maxwidth = 50 -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      })
+   }
 })
 cmp.setup.cmdline('/', {mapping = cmp.mapping.preset.cmdline(), sources = {{name = 'buffer'}}})
 cmp.setup.cmdline(':', {mapping = cmp.mapping.preset.cmdline(), sources = {{name = 'path'}, {name = 'cmdline'}}})
