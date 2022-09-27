@@ -55,6 +55,21 @@ return packer.startup(function(use)
    use({'tpope/vim-repeat'})
    use({'tpope/vim-fugitive'})
 
+   -- lsp
+   use({'williamboman/mason.nvim', config = function() require('plugins.mason') end})
+   use({'williamboman/mason-lspconfig.nvim', config = function() require('plugins.mason_lspconfig') end})
+   use({'neovim/nvim-lspconfig', config = function() require('plugins.lspconfig') end})
+   use({'jose-elias-alvarez/null-ls.nvim', config = function() require('plugins.null_ls') end, requires = {
+      'nvim-lua/plenary.nvim'
+   }})
+
+   -- completion
+   use({'hrsh7th/cmp-buffer'})
+   use({'hrsh7th/cmp-path'})
+   use({'hrsh7th/cmp-cmdline'})
+   use({'hrsh7th/cmp-nvim-lsp'})
+   use({'hrsh7th/nvim-cmp', config = function() require('plugins.cmp') end})
+
    -- util
    use({'junegunn/fzf'})
 
