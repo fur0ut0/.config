@@ -1,6 +1,6 @@
 local ensure_packer = function()
    local fn = vim.fn
-   local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+   local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
    if fn.empty(fn.glob(install_path)) > 0 then
       fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
       vim.cmd [[packadd packer.nvim]]
@@ -12,17 +12,9 @@ end
 local packer_bootstrap = ensure_packer()
 
 local ok, packer = pcall(require, 'packer')
-if not ok then
-   return
-end
+if not ok then return end
 
-packer.init({
-   display = {
-      open_fn = function()
-         return require('packer.util').float({border = 'rounded'})
-      end,
-   },
-})
+packer.init({display = {open_fn = function() return require('packer.util').float({border = 'rounded'}) end}})
 
 vim.cmd([[
 augroup packer_user_config
@@ -59,9 +51,11 @@ return packer.startup(function(use)
    use({'williamboman/mason.nvim', config = function() require('plugins.mason') end})
    use({'williamboman/mason-lspconfig.nvim', config = function() require('plugins.mason_lspconfig') end})
    use({'neovim/nvim-lspconfig', config = function() require('plugins.lspconfig') end})
-   use({'jose-elias-alvarez/null-ls.nvim', config = function() require('plugins.null_ls') end, requires = {
-      'nvim-lua/plenary.nvim'
-   }})
+   use({
+      'jose-elias-alvarez/null-ls.nvim',
+      config = function() require('plugins.null_ls') end,
+      requires = {'nvim-lua/plenary.nvim'}
+   })
 
    -- completion
    use({'hrsh7th/cmp-buffer'})
@@ -73,7 +67,5 @@ return packer.startup(function(use)
    -- util
    use({'junegunn/fzf'})
 
-   if packer_bootstrap then
-      require('packer').sync()
-   end
+   if packer_bootstrap then require('packer').sync() end
 end)

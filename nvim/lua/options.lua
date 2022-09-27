@@ -35,9 +35,7 @@ local options = {
    whichwrap = 'b,s,h,l,<,>,[,]',
    wildmode = {'list', 'full'},
    wrap = true,
-   writebackup = false,
+   writebackup = false
 }
 
-for k, v in pairs(options) do
-   vim.opt[k] = v
-end
+for k, v in pairs(options) do vim.opt[k] = v end
