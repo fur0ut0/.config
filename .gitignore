@@ -15,6 +15,7 @@
 !/i3/
 !/irb/
 !/latexmk/
+!/luaformatter/
 !/mypy/
 !/nvim/
 !/python3/
