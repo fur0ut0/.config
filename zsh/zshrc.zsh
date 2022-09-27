@@ -55,46 +55,45 @@ mac*)
    ;;
 esac
 
-#====#
-# zi #
-#====#
-typeset -g -A ZI
-ZI[HOME_DIR]=$XDG_CACHE_HOME/zi
-ZI[BIN_DIR]=$ZI[HOME_DIR]/bin
-ZI[ZCOMPDUMP_PATH]=$XDG_CACHE_HOME/zsh/compdump
-ZPFX=$ZI[HOME_DIR]/polaris
+#=========#
+# plugins #
+#=========#
+typeset -g -A ZINIT
+ZINIT[HOME_DIR]=$XDG_CACHE_HOME/zinit
+ZINIT[BIN_DIR]=$ZINIT[HOME_DIR]/bin
+ZINIT[ZCOMPDUMP_PATH]=$XDG_CACHE_HOME/zsh/compdump
+ZPFX=$ZINIT[HOME_DIR]/polaris
 
-if [[ ! -d $ZI[BIN_DIR] ]]; then
-   print "==> Setup zi..."
-   [[ -d $ZI[HOME_DIR] ]] || mkdir -p $ZI[HOME_DIR]
-   (( $+commands[git] )) && git clone https://github.com/zdharma/zi.git $ZI[BIN_DIR]
+if [[ ! -d $ZINIT[BIN_DIR] ]]; then
+   print "==> Setup zinit..."
+   [[ -d $ZINIT[HOME_DIR] ]] || mkdir -p $ZINIT[HOME_DIR]
+   (( $+commands[git] )) && git clone https://github.com/zdharma-continuum/zinit.git $ZINIT[BIN_DIR]
 fi
 
-if [[ -f $ZI[BIN_DIR]/zi.zsh ]]; then
-   source $ZI[BIN_DIR]/zi.zsh
+if [[ -f $ZINIT[BIN_DIR]/zinit.zsh ]]; then
+   source $ZINIT[BIN_DIR]/zinit.zsh
 fi
 
-if (( $+functions[zi] )); then
-   zi ice pick"async.zsh" src"pure.zsh"; zi light sindresorhus/pure
+if (( $+functions[zinit] )); then
+   zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 
-   zi ice from"gh-r" as"program"; zi light junegunn/fzf-bin
-   zi ice as"program" pick"bin/fzf-tmux" src"shell/key-bindings.zsh"; zi light junegunn/fzf
+   zinit ice as"program" pick"bin/*" src"shell/key-bindings.zsh" atclone"./install --bin" atpull"%atclone"; zinit light junegunn/fzf
 
-   zi ice wait"0" blockf; zi light zsh-users/zsh-completions
-   zi ice wait"0" atload"_zsh_autosuggest_start"; zi light zsh-users/zsh-autosuggestions
+   zinit ice wait"0" blockf; zinit light zsh-users/zsh-completions
+   zinit ice wait"0" atload"_zsh_autosuggest_start"; zinit light zsh-users/zsh-autosuggestions
 
-   zi ice wait"0" atinit"zpcompinit; zpcdreplay"; zi light zdharma/fast-syntax-highlighting
-   zi ice wait"0" atload"zpcompinit; zpcdreplay"; zi light ascii-soup/zsh-url-highlighter
-   zi ice wait"0" blockf; zi snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+   zinit ice wait"0" atinit"zpcompinit; zpcdreplay"; zinit light zdharma/fast-syntax-highlighting
+   zinit ice wait"0" atload"zpcompinit; zpcdreplay"; zinit light ascii-soup/zsh-url-highlighter
+   zinit ice wait"0" blockf; zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
-   zi ice wait"0"; zi light mollifier/zload
+   zinit ice wait"0"; zinit light mollifier/zload
 
    # completions
-   zi ice lucid nocompile; zi load MenkeTechnologies/zsh-cargo-completion
-   zi ice wait"0" as"completion"; zi light gangleri/pipenv
+   zinit ice lucid nocompile; zinit load MenkeTechnologies/zsh-cargo-completion
+   zinit ice wait"0" as"completion"; zinit light gangleri/pipenv
 
    typeset -g ENHANCD_DIR=$XDG_DATA_HOME/enhancd ENHANCD_DOT_ARG=... ENHANCD_HYPHEN_ARG=-- ENHANCD_HOME_ARG=%
-   zi ice wait"0"; zi light b4b4r07/enhancd
+   zinit ice wait"0"; zinit light b4b4r07/enhancd
 fi
 
 #============#
