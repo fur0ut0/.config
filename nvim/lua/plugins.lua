@@ -40,6 +40,7 @@ return packer.startup(function(use)
    use({'bronson/vim-trailing-whitespace'})
    use({'nathanaelkane/vim-indent-guides', config = function() require('plugins.indent_guides') end})
    use({'tpope/vim-sleuth'})
+   use({'nvim-treesitter/nvim-treesitter', config = function() require('plugins.treesitter') end, run = ':TSUpdate'})
 
    -- operation
    use({'cohama/lexima.vim'})
