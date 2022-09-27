@@ -20,6 +20,7 @@ local options = {
    -- listchars cannot be set via table (Neovim v0.7.2)
    listchars = 'tab:>-,extends:>,precedes:<,trail:_,nbsp:%',
    matchpairs = {'(:)', '{:}', '[:]'},
+   mouse = '',
    number = true,
    shiftwidth = 3,
    showmatch = true,
