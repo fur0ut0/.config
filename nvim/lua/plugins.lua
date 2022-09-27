@@ -58,6 +58,7 @@ return packer.startup(function(use)
       config = function() require('plugins.null_ls') end,
       requires = {'nvim-lua/plenary.nvim'}
    })
+   use({'ray-x/lsp_signature.nvim', config = function() require('plugins.lsp_signature') end})
 
    -- completion
    use({'hrsh7th/cmp-buffer'})
