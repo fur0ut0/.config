@@ -6,12 +6,12 @@ if (( $# < 1 )); then
 fi
 
 case $1 in
-*.tar.gz | *.tgz)   tar xzvf $* ;;
-*.tar.xz)           tar Jxvf $* ;;
+*.tar.gz | *.tgz)   tar xvf $* ;;
+*.tar.xz)           tar xvf $* ;;
 *.zip)              unzip -d ${1:t:r} $* ;;
 *.lzh)              lha e $* ;;
-*.tar.bz2 | *.tbz)  tar xjvf $* ;;
-*.tar.Z)            tar zxvf $* ;;
+*.tar.bz2 | *.tbz)  tar xvf $* ;;
+*.tar.Z)            tar xvf $* ;;
 *.gz)               gzip -d $* ;;
 *.bz2)              bzip2 -dc $* ;;
 *.Z)                uncompress $* ;;
