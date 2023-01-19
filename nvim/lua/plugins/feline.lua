@@ -206,6 +206,7 @@ components.inactive[1] = {
         provider = {
             name = 'file_info',
             opts = {
+                colored_icon = false,
                 type = 'relative',
             }
         },
