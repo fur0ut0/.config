@@ -7,11 +7,13 @@ local components = {
     inactive = {},
 }
 
+dark_orange = '#C75B13'
+
 components.active[1] = {
     {
         provider = '▊ ',
         hl = {
-            fg = 'oceanblue',
+            fg = dark_orange,
         },
     },
     {
@@ -28,21 +30,37 @@ components.active[1] = {
         provider = {
             name = 'file_info',
             opts = {
+                colored_icon = false,
                 type = 'relative',
             }
         },
         hl = {
             fg = 'white',
-            bg = 'oceanblue',
+            bg = dark_orange,
             style = 'bold',
         },
         left_sep = {
-            { str = ' ', hl = { bg = 'oceanblue', fg = 'NONE' } },
+            { str = ' ', hl = { bg = dark_orange, fg = 'NONE' } },
         },
         right_sep = {
-            { str = ' ', hl = { bg = 'oceanblue', fg = 'NONE' } },
+            { str = ' ', hl = { bg = dark_orange, fg = 'NONE' } },
         },
         priority = -1
+    },
+    {
+        provider = 'file_type',
+        left_sep = {
+            ' '
+        },
+        right_sep = {
+            {
+                str = 'vertical_bar_thin',
+                hl = {
+                    fg = 'orange',
+                    bg = 'bg',
+                },
+            },
+        },
     },
     {
         provider = 'file_size',
@@ -53,7 +71,7 @@ components.active[1] = {
             {
                 str = 'vertical_bar_thin',
                 hl = {
-                    fg = 'skyblue',
+                    fg = 'orange',
                     bg = 'bg',
                 },
             },
@@ -66,7 +84,7 @@ components.active[1] = {
             {
                 str = 'vertical_bar_thin',
                 hl = {
-                    fg = 'skyblue',
+                    fg = 'orange',
                     bg = 'bg',
                 },
             },
@@ -81,7 +99,7 @@ components.active[1] = {
             {
                 str = 'vertical_bar_thin',
                 hl = {
-                    fg = 'skyblue',
+                    fg = 'orange',
                     bg = 'bg',
                 },
             },
@@ -97,7 +115,7 @@ components.active[1] = {
             {
                 str = 'vertical_bar_thin',
                 hl = {
-                    fg = 'skyblue',
+                    fg = 'orange',
                     bg = 'bg',
                 },
             },
@@ -118,7 +136,7 @@ components.active[1] = {
     },
     {
         provider = 'diagnostic_info',
-        hl = { fg = 'skyblue' },
+        hl = { fg = 'orange' },
     },
 }
 
@@ -177,7 +195,7 @@ components.active[2] = {
     {
         provider = 'scroll_bar',
         hl = {
-            fg = 'skyblue',
+            fg = 'orange',
             style = 'bold',
         },
     },
@@ -185,17 +203,21 @@ components.active[2] = {
 
 components.inactive[1] = {
     {
-        provider = 'file_type',
+        provider = {
+            name = 'file_info',
+            opts = {
+                type = 'relative',
+            }
+        },
         hl = {
             fg = 'white',
-            bg = 'oceanblue',
-            style = 'bold',
+            bg = 'black',
         },
         left_sep = {
             str = ' ',
             hl = {
                 fg = 'NONE',
-                bg = 'oceanblue',
+                bg = 'black',
             },
         },
         right_sep = {
@@ -203,11 +225,10 @@ components.inactive[1] = {
                 str = ' ',
                 hl = {
                     fg = 'NONE',
-                    bg = 'oceanblue',
+                    bg = 'black',
                 },
             },
-            'slant_right',
-        },
+        }
     },
     -- Empty component to fix the highlight till the end of the statusline
     {},
