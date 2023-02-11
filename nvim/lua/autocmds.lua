@@ -12,3 +12,11 @@ autocmd({'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave'}, {
    pattern = {'*'},
    callback = function() if vim.o.number then vim.o.relativenumber = false end end
 })
+
+-- copy yanked text to windows clipboard in WSL
+local winshareclip = augroup('winshareclip', {clear = true})
+autocmd({'TextyankPost'},{
+   group = winshareclip,
+   pattern = {'*'},
+   callback = function() vim.fn.system('clip.exe', vim.fn.getreg('')) end,
+})
