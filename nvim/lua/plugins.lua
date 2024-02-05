@@ -40,7 +40,7 @@ return packer.startup(function(use)
    use({'bronson/vim-trailing-whitespace'})
    use({'nathanaelkane/vim-indent-guides', config = function() require('plugins.indent_guides') end})
    use({'tpope/vim-sleuth'})
-   use({'nvim-treesitter/nvim-treesitter', config = function() require('plugins.treesitter') end, run = ':TSUpdate'})
+   --use({'nvim-treesitter/nvim-treesitter', config = function() require('plugins.treesitter') end, run = ':TSUpdate'})
 
    -- operation
    use({'cohama/lexima.vim'})
@@ -50,9 +50,9 @@ return packer.startup(function(use)
    use({'tpope/vim-fugitive'})
 
    -- lsp
-   use({'williamboman/mason.nvim', config = function() require('plugins.mason') end})
-   use({'williamboman/mason-lspconfig.nvim', config = function() require('plugins.mason_lspconfig') end})
-   use({'neovim/nvim-lspconfig', config = function() require('plugins.lspconfig') end})
+   --use({'williamboman/mason.nvim', config = function() require('plugins.mason') end})
+   --use({'williamboman/mason-lspconfig.nvim', config = function() require('plugins.mason_lspconfig') end})
+   --use({'neovim/nvim-lspconfig', config = function() require('plugins.lspconfig') end})
    use({
       'jose-elias-alvarez/null-ls.nvim',
       config = function() require('plugins.null_ls') end,
