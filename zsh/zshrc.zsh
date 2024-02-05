@@ -260,7 +260,7 @@ fi
 # Attach existing tmux session or create new one
 # https://qiita.com/ssh0/items/a9956a74bff8254a606a
 autoload -Uz is-at-least
-if (( $+commands[tmux] * !$+TMUX )) && is-at-least 5.2.0 && (( ! $+DISABLE_AUTO_TMUX_ATTACH )); then
+if (( $+commands[tmux] * !$+TMUX )) && is-at-least 5.2.0 && (( ! $+DISABLE_AUTO_TMUX_ATTACH )) && [[ "$TERM_PROGRAM" != "vscode" ]]; then
    () {
       # Build session lists
       # Colons(:) are used as delimiter
