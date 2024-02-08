@@ -29,6 +29,8 @@
    cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
 [pull]
    ff = only
+[push]
+   default = current
 [diff]
    compactionHeuristic = true
 
