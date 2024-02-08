@@ -62,6 +62,17 @@ else
    unset CCLS_ROOT
 fi
 
+# go
+if [[ -z $GO_ROOT ]]; then
+   GO_ROOT=$HOME/.local/share/go
+fi
+if [[ -d $GO_ROOT ]]; then
+   export GO_ROOT
+   add-to-env path $GO_ROOT/bin
+else
+   unset GO_ROOT
+fi
+
 # Fix umask for Windows Subsystem Linux
 [[ "$(umask)" = "000" ]] && umask 022
 
