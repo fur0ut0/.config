@@ -1,27 +1,11 @@
 # Based on whitelist management
 /*
 
-# Utility
-!.gitignore
+# It is better to place utility files on root directory
+!/.gitignore
 !/README.md
-!/link_extra.sh
 !/init.sh
-!/.init
 
-# Config entities
-!/albert/
-!/compton.conf
-!/git/
-!/i3/
-!/irb/
-!/latexmk/
-!/luaformatter/
-!/mypy/
-!/nvim/
-!/python3/
-!/termite/
-!/tmux/
-!/vim/
-!/zsh/
+# Place other entities in sub-directory
+!/entities
 
-!/*.terminfo
