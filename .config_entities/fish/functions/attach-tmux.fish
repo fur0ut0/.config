@@ -1,16 +1,16 @@
 function attach-tmux
-    set -l sessions "$(tmux list-sessions 2> /dev/null)"
+    set -f sessions "$(tmux list-sessions 2> /dev/null)"
     if [ -z "$sessions" ]
         tmux new-session
         return 0
     end
-    set -l sessions $sessions\n"n: Create New Session"\n"x: Exit"
+    set -f sessions $sessions\n"n: Create New Session"\n"x: Exit"
     if set -q PERCOL; and type -q $PERCOL
-        set -l id $(echo "$sessions" | $PERCOL | cut -d: -f1)
+        set -f id "$(echo "$sessions" | $PERCOL | cut -d: -f1)"
     else
         echo "[TMUX Manager] Do you want to attach or create tmux session?"
         echo $sessions
-        read -l -P "Please enter ID: " id
+        read -f -P "Please enter ID: " id
     end
     if [ "$id" = n ]
         tmux new-session
