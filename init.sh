@@ -1,46 +1,33 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 set -eu
 
-script_root="$(cd $(dirname "$0"); pwd)"
+this_dir="$(cd "$(dirname "$0")"; pwd)"
+module_dir="$this_dir"/.config_entities/script/module
 
-# 古いbashでは連想配列がない
-# そこでただの配列で代用する
-declare -a src_dst_pairs=(
-   "zsh/.zshenv" ".zshenv"
-)
-if (( ${#src_dst_pairs[@]} % 2 != 0 )); then
-   echo "Implementation error on pairs array" >&2
-   exit 1
-fi
+. "$module_dir"/header.sh
 
-echo "==> Create extra symlinks"
-
-for ((i = 0; i < ${#src_dst_pairs[@]}; i += 2)); do
-   src="$script_root/${src_dst_pairs[$i]}"
-   dst="$HOME/${src_dst_pairs[$(($i + 1))]}"
-   ln -svf "$src" "$dst"
-done
-
-echo "==> Bind colorscheme packages"
-
-declare -a repos_names=(
-)
-
-nvim_color_dir="$script_root/nvim/colors"
-mkdir -p "$nvim_color_dir"
-for repos_name in ${repos_names[@]}; do
-   dirname="$(basename $repos_name .git)"
-   if [[ ! -d "$nvim_color_dir/$dirname" ]]; then
-      yes | ssh -T git@github.com > /dev/null 2>&1 && :
-      if [[ $? == 1 ]]; then
-         url="git@github.com:$repos_name"
-      else
-         url="https://github.com/$repos_name"
-      fi
-      git clone "$url" "$nvim_color_dir/$dirname"
+# Create links to entities
+for d in .config_entities/*; do
+   dst="$this_dir/$(basename "$d")"
+   if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+      # Backup existing one
+      mkdir -p backup
+      mv -v "$dst" backup
    fi
-   for colorscheme in "$nvim_color_dir/$dirname/colors"/*.vim; do
-      ln -sfv "$colorscheme" "$nvim_color_dir/$(basename $colorscheme)"
-   done
+   ln -vsfnr "$d" "$this_dir"
 done
 
+# Configure git local config
+git_local_config="$this_dir"/git/local/config
+if [ ! -e "$git_local_config" ]; then
+   echo "$(header info) Configure git local config"
+   echo -n "$(header prompt) Enter your user.name: "
+   read _name
+   echo -n "$(header prompt) Enter your user.email: "
+   read _email
+   echo """[user]
+   name = $_name
+   email = $_email""" >> "$git_local_config"
+   echo "$(header info) Configured git local config:"
+   cat "$git_local_config"
+fi
