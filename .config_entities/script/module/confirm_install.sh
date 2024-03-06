@@ -8,6 +8,6 @@ confirm_install() {
    read _response
    case "$_response" in
       [yY]*) install_$1 ;;
-      *) echo "$(header info) Abort installation." ;;
+      *) echo "$(header info) Skip installing $1." ;;
    esac
 }
