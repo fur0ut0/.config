@@ -4,8 +4,7 @@
 # It is better to place utility files on root directory
 !/.gitignore
 !/README.md
-!/init.sh
+!/*.sh
 
 # Place other entities in sub-directory
-!/entities
-
+!/.config_entities

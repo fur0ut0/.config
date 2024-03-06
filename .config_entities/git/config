@@ -1,0 +1,46 @@
+# user
+[user]
+   useConfigOnly = true
+
+# editorial
+[core]
+   editor = nvim
+   whitespace = cr-at-eol
+   quotepath = false
+[color]
+   ui = auto
+[credential]
+   helper = cache
+
+[alias]
+   cof = !git branch -a | fzf | xargs git checkout
+
+# default behavior
+[init]
+   defaultBranch = main
+[commit]
+   verbose = true
+[fetch]
+   prune = true
+[merge]
+   ff = false
+   tool = nvimdiff
+[mergetool "nvimdiff"]
+   cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+[pull]
+   ff = only
+[push]
+   default = current
+[diff]
+   compactionHeuristic = true
+
+[include]
+   path = local/config
+
+[filter "lfs"]
+   process = git-lfs filter-process
+   required = true
+   clean = git-lfs clean -- %f
+   smudge = git-lfs smudge -- %f
+
+# vim: ft=gitconfig
