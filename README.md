@@ -10,7 +10,7 @@ When there is no `.config` directory in your home directory:
 
 ```shell
 $ cd ~
-$ git clone -b renew-env https://github.com/fur0ut0/.config
+$ git clone https://github.com/fur0ut0/.config
 $ cd .config
 $ ./init.sh
 ```
@@ -20,7 +20,7 @@ When there is already `.config` directory in your home directory:
 ```shell
 $ cd ~
 $ mv .config config
-$ git clone -b renew-env https://github.com/fur0ut0/.config
+$ git clone https://github.com/fur0ut0/.config
 $ mv config/* .config
 $ cd .config
 $ ./init.sh
