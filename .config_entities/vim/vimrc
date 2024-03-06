@@ -12,12 +12,24 @@ if $XDG_DATA_HOME == ''
    let $XDG_DATA_HOME = expand('$HOME/.local/share')
 endif
 
-if !isdirectory(expand("$XDG_CACHE_HOME/vim"))
-   call mkdir(expand("$XDG_CACHE_HOME/vim"), "p")
+let g:undodir = expand("$XDG_CACHE_HOME/vim/undo")
+let &undodir=g:undodir
+if !isdirectory(g:undodir)
+   call mkdir(g:undodir, "p")
 endif
-set undodir=$XDG_CACHE_HOME/vim/undo
-set directory=$XDG_CACHE_HOME/vim/swap
-set backupdir=$XDG_CACHE_HOME/vim/backup
+
+let g:directory = expand("$XDG_CACHE_HOME/vim/swap")
+let &directory=g:directory
+if !isdirectory(g:directory)
+   call mkdir(g:directory, "p")
+endif
+
+let g:backupdir = expand("$XDG_CACHE_HOME/vim/backup")
+let &backupdir=g:backupdir
+if !isdirectory(g:backupdir)
+   call mkdir(g:backupdir, "p")
+endif
+
 set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
