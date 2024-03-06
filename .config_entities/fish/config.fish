@@ -1,6 +1,3 @@
-export PERCOL=fzf
-export TMUX_CONFIG_DIR=$HOME/.config/tmux
-
 if status is-interactive
     # Commands to run in interactive sessions can go here
     if status is-login; and not set -q TMUX; and [ "$TERM_PROGRAM" != vscode ]
