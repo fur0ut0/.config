@@ -1,0 +1,20 @@
+[user]
+   name = float
+   email = float@silent-abyss.xyz
+
+# Proxy
+#[http "http://hoge/"]
+#   proxy = socks5://localhost:8080
+
+# For gnome keyring
+#[credential]
+#   helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+
+# For Git LFS
+#[filter "lfs"]
+#   smudge = git-lfs smudge -- %f
+#   process = git-lfs filter-process
+#   required = true
+#   clean = git-lfs clean -- %f
+
+# vim: ft=gitconfig

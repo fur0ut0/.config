@@ -1,51 +1,23 @@
-#/usr/bin/env bash
+#!/usr/bin/env sh
 set -eu
 
-script_root="$(cd $(dirname "$0"); pwd)"
+this_dir="$(cd "$(dirname "$0")"; pwd)"
+module_dir="$this_dir"/.config_entities/script/module
 
-export XDG_DATA_HOME="${XDG_DATA_HOME:-"$HOME/.local/share"}"
+. "$module_dir"/find_out_distro.sh
+. "$module_dir"/confirm_install.sh
+. "$module_dir"/install_fish.sh
+. "$module_dir"/install_fzf.sh
+. "$module_dir"/install_luarocks.sh
+. "$module_dir"/install_neovim.sh
+. "$module_dir"/install_neovim_one.sh
+. "$module_dir"/install_pyenv.sh
+. "$module_dir"/install_ripgrep.sh
 
-setup_pyenv() {
-   mkdir -p "$XDG_DATA_HOME"
-   cd "$XDG_DATA_HOME"
-   git clone https://github.com/pyenv/pyenv
-   cd pyenv/plugins
-   git clone https://github.com/pyenv/pyenv-virtualenv
-}
-
-setup_rbenv() {
-   mkdir -p "$XDG_DATA_HOME"
-   cd "$XDG_DATA_HOME"
-   git clone https://github.com/rbenv/rbenv
-   mkdir -p rbenv/plugins
-   cd rbenv/plugins
-   git clone https://github.com/rbenv/ruby-build
-}
-
-confirm_setup() {
-   local name=$1
-   echo -n "Do you want to setup $name?: "
-   local response
-   read response
-   case "$response" in
-      [yY]*) eval setup_$name ;;
-      *) ;;
-   esac
-}
-
-#------------------------------------------------------------------------------
-# Main
-
-if ! which pyenv > /dev/null 2>&1; then
-   confirm_setup pyenv
-fi
-
-if ! which rbenv > /dev/null 2>&1; then
-   confirm_setup rbenv
-fi
-
-case "$(uname -s )" in
-   Darwin*) "$script_root/.init/macos_setup.sh" ;;
-   Linux*)  "$script_root/.init/linux_setup.sh" ;;
-esac
-
+which fish > /dev/null || confirm_install fish
+which fzf > /dev/null || confirm_install fzf
+which luarocks > /dev/null || confirm_install luarocks
+which nvim > /dev/null || confirm_install neovim
+[ -d "$XDG_DATA_HOME"/nvim/site/pack/user/start ] || confirm_install neovim_one
+which pyenv > /dev/null || confirm_install pyenv
+which rg > /dev/null || confirm_install ripgrep
