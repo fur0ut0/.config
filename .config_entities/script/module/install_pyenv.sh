@@ -11,11 +11,22 @@ install_pyenv() {
       git clone https://github.com/pyenv/pyenv
       cd pyenv/plugins
       git clone https://github.com/pyenv/pyenv-virtualenv
-      return $?
+   else
+      # TODO: use other methods to download repository
+      echo "$0: git not found" >&2
+      return 1
    fi
 
-   # TODO: use other methods to download repository
-
-   echo "$0: git not found" >&2
-   return 1
+   # Install packages to build python
+   # FIY: https://github.com/pyenv/pyenv/wiki#troubleshooting--faq
+   if which apt > /dev/null; then
+      sudo apt update
+      sudo apt install build-essential libssl-dev zlib1g-dev libbz2-dev \
+         libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev \
+         libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+   else
+      # TODO: support other distro
+      echo "$0: unsupported distro" >&2
+      return 1
+   fi
 }
