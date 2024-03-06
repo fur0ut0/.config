@@ -7,3 +7,4 @@ set -x XDG_RUNTIME_DIR /run/user/$UID
 
 set -x TMUX_CONFIG_DIR $HOME/.config/tmux
 set -x PERCOL fzf
+set -x VIMINIT "source $XDG_CONFIG_HOME/vim/vimrc"
