@@ -7,12 +7,14 @@ module_dir="$this_dir"/.config_entities/script/module
 . "$module_dir"/header.sh
 
 # Create links to entities
+timestamp="$(date +%Y%m%dT%H%M%S)"
+backup_dir=backup/"$timestamp"
 for d in .config_entities/*; do
    dst="$this_dir/$(basename "$d")"
    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
       # Backup existing one
-      mkdir -p backup
-      mv -v "$dst" backup
+      mkdir -p "$backup_dir"
+      mv -vb "$dst" "$backup_dir"
    fi
    ln -vsfnr "$d" "$this_dir"
 done
