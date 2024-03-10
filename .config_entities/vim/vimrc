@@ -32,6 +32,7 @@ endif
 
 set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
+set packpath+=$XDG_DATA_HOME/vim,$XDG_DATA_HOME/vim/after
 
 " Basic
 set history=200
@@ -194,20 +195,6 @@ nnoremap <C-l> <C-l>:<C-u>nohlsearch<CR>
 inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-" makes * and # work on visual mode too.
-" From http://got-ravings.blogspot.com/2008/07/vim-pr0n-visual-search-mappings.html
-function! s:VSetSearch(cmdtype)
-   let temp = @s
-   norm! gv"sy
-   let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
-   let @s = temp
-endfunction
-xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
-xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
-" recursively vimgrep for word under cursor or selection if you hit leader-star
-nmap <leader>* :execute 'noautocmd vimgrep /\V' . substitute(escape(expand("<cword>"), '\'), '\n', '\\n', 'g') . '/ **'<CR>
-vmap <leader>* :<C-u>call <SID>VSetSearch()<CR>:execute 'noautocmd vimgrep /' . @/ . '/ **'<CR>
 
 filetype indent plugin on
 
