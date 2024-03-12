@@ -8,8 +8,8 @@ module_dir="$this_dir"/.config_entities/script/module
 
 # Create links to entities
 timestamp="$(date +%Y%m%dT%H%M%S)"
-backup_dir=backup/"$timestamp"
-for d in .config_entities/*; do
+backup_dir="$this_dir"/backup/"$timestamp"
+for d in "$this_dir"/.config_entities/*; do
    dst="$this_dir/$(basename "$d")"
    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
       # Backup existing one
