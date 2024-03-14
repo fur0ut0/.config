@@ -9,8 +9,6 @@
    quotepath = false
 [color]
    ui = auto
-[credential]
-   helper = cache
 
 [alias]
    cof = !git branch -a | fzf | xargs git checkout
