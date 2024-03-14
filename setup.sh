@@ -13,6 +13,7 @@ module_dir="$this_dir"/.config_entities/script/module
 . "$module_dir"/install_neovim_one.sh
 . "$module_dir"/install_pyenv.sh
 . "$module_dir"/install_ripgrep.sh
+. "$module_dir"/install_tmux.sh
 . "$module_dir"/install_vim.sh
 
 which fish > /dev/null || confirm_install fish
@@ -22,4 +23,5 @@ which nvim > /dev/null || confirm_install neovim
 [ -d "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/user/start ] || confirm_install neovim_one
 which pyenv > /dev/null || confirm_install pyenv
 which rg > /dev/null || confirm_install ripgrep
+which tmux > /dev/null || confirm_install tmux
 which vim > /dev/null || confirm_install vim
