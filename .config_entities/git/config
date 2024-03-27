@@ -41,4 +41,7 @@
    clean = git-lfs clean -- %f
    smudge = git-lfs smudge -- %f
 
+[secrets]
+   patterns = DO NOT COMMIT
+
 # vim: ft=gitconfig
