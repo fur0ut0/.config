@@ -33,3 +33,20 @@ if [ ! -e "$git_local_config" ]; then
    echo "$(header info) Configured git local config:"
    cat "$git_local_config"
 fi
+
+# Create ssh config if not exists
+if [ -d "$HOME" -a ! -d "$HOME"/.ssh ]; then
+   mkdir -m 700 "$HOME"/.ssh
+fi
+if [ ! -f "$HOME"/.ssh/config ]; then
+   cat > $HOME/.ssh/config <<EOS
+Host *
+    ServerAliveInterval 300
+    ServerAliveCountMax 10
+    ForwardX11 yes
+    ForwardX11trusted yes
+    ForwardAgent yes
+EOS
+
+fi
+
