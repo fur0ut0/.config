@@ -31,6 +31,7 @@
    default = current
 [diff]
    compactionHeuristic = true
+   wsErrorHighlight = all
 
 [include]
    path = local/config
