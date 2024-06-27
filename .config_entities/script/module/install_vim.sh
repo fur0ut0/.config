@@ -4,7 +4,8 @@ set -eu
 install_vim() {
    if which apt > /dev/null; then
       sudo apt update
-      sudo apt install -y vim
+      # "vim-gtk" supports clipboard, but "vim" does not
+      sudo apt install -y vim-gtk
    fi
    if which git > /dev/null; then
       pack_dir="${XDG_DATA_HOME:-$HOME/.local/share}"/vim/pack
