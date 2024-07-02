@@ -21,7 +21,6 @@
 [fetch]
    prune = true
 [merge]
-   ff = false
    tool = nvimdiff
 [mergetool "nvimdiff"]
    cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
