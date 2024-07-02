@@ -7,3 +7,6 @@ set -x XDG_RUNTIME_DIR /run/user/$UID
 
 set -x TMUX_CONFIG_DIR $HOME/.config/tmux
 set -x PERCOL fzf
+
+fish_add_path $HOME/.local/bin
+
