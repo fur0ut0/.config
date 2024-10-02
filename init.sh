@@ -16,7 +16,7 @@ for d in "$this_dir"/.config_entities/*; do
       mkdir -p "$backup_dir"
       mv -vb "$dst" "$backup_dir"
    fi
-   ln -vsfnr "$d" "$this_dir"
+   ln -vsfn "$d" "$this_dir"
 done
 
 # Configure git local config
