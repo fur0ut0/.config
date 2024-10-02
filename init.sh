@@ -22,15 +22,15 @@ done
 # Configure git local config
 git_local_config="$this_dir"/git/local/config
 if [ ! -e "$git_local_config" ]; then
-   echo "$(header info) Configure git local config"
-   echo -n "$(header prompt) Enter your user.name: "
+   printf "$(header info) Configure git local config"
+   printf "$(header prompt) Enter your user.name: "
    read _name
-   echo -n "$(header prompt) Enter your user.email: "
+   printf "$(header prompt) Enter your user.email: "
    read _email
    echo """[user]
    name = $_name
    email = $_email""" >> "$git_local_config"
-   echo "$(header info) Configured git local config:"
+   printf "$(header info) Configured git local config:\n"
    cat "$git_local_config"
 fi
 
