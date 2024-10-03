@@ -1,0 +1,10 @@
+#!zsh
+
+if [[ ! -d $PYENV_ROOT ]]; then
+   print -u 2 -- '$PYENV_ROOT not set, abort'
+fi
+
+cd $PYENV_ROOT
+git pull
+cd -
+

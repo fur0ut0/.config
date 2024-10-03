@@ -1,0 +1,14 @@
+#!zsh
+
+if [[ ! -d $RBENV_ROOT ]]; then
+   print -u 2 -- '$RBENV_ROOT not set, abort'
+fi
+
+cd $RBENV_ROOT
+git pull
+cd -
+
+cd $RBENV_ROOT/plugins/ruby-build
+git pull
+cd -
+

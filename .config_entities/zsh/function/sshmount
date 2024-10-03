@@ -1,0 +1,102 @@
+#!zsh
+
+local sshfs_options=(
+   -C -o transform_symlinks -o allow_other -o nonempty -o kernel_cache
+   -o idmap=user -o uid=$(id -u) -o gid=$(id -g)
+)
+
+local entry_dir="${XDG_DATA_HOME:-.local/share}/sshmount"
+
+sshmount_usage() {
+   print -u 2 -l -- \
+      "usage: ${1:t} [options] entryname" \
+      "[options]" \
+      "   -h,--help     print this help" \
+      "   -l,--list     list available entries" \
+      "   -u,--unmount  unmount mode" \
+      "[entry file format]" \
+      "   entry file naming convention: '${entry_dir}/<entryname>.zsh'" \
+      "   parameters which should be defined in entry file:" \
+      "      * host        hostname of remote machine" \
+      "      * remote_dir  remote directory path" \
+      "      * local_dir   local mount point directory path" \
+      "      * extra_opts  (optional) extra options for sshfs"
+}
+
+if (( $# < 1 )); then
+   sshmount_usage "$0"
+   return 1
+fi
+
+declare -A entry_files
+for f in "$entry_dir"/*.zsh(N-.); do
+   entry_files[${f:t:r}]="$f"
+done
+
+local names=()
+local unmount_mode=0
+for OPT in "$@"
+do
+   case $OPT in
+      -h|--help)
+         sshmount_usage $0
+         return 0
+         ;;
+      -l|--list)
+         print -l -- ${(@k)entry_files}
+         return 0
+         ;;
+      -u|--unmount)
+         unmount_mode=1
+         ;;
+      *)
+         if [[ -z "${entry_files[(i)$OPT]}" ]]; then
+            print -u 2 -P -- "%F{red}Unknown entryname: $OPT%f"
+            return 1
+         fi
+         names+=($OPT)
+         ;;
+   esac
+   shift
+done
+
+for name in $names; do
+   local host remote_dir local_dir
+   local extra_opts=()
+   source ${entry_files[$name]}
+   if [[ -z "$host" || -z "$remote_dir" || -z "$local_dir" ]]; then
+      print -u 2 -P -- "%F{red}invalid entry file format: ${entry_files[$name]}%f"
+   fi
+
+   local opts=($sshfs_options)
+   opts+=($extra_opts)
+
+   grep -qs $local_dir /proc/mounts && true
+   local not_mounted=$?
+
+   if [[ $unmount_mode == 1 ]]; then
+      if (( $not_mounted )); then
+         print -u 2 -P -- "%F{red}Not mounted: $local_dir%f"
+         return 1
+      fi
+
+      if fusermount -uz $local_dir; then
+         print -u 2 -P -- "%F{green}Successfully unmounted: $local_dir%f"
+      else
+         print -u 2 -P -- "%F{red}Failed to unmount: $local_dir%f"
+      fi
+   else
+      if (( ! $not_mounted )); then
+         print -u 2 -P -- "%F{red}Already mounted: $local_dir%f"
+         return 1
+      fi
+
+      mkdir -p $local_dir
+      if sshfs $host:$remote_dir $local_dir $opts; then
+         print -u 2 -P -- "%F{green}Successfully mounted: $local_dir ($host:$remote_dir)%f"
+      else
+         print -u 2 -P -- "%F{red}Failed to mount: $host:$remote_dir%f"
+      fi
+   fi
+done
+

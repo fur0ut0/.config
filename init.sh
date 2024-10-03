@@ -19,6 +19,9 @@ for d in "$this_dir"/.config_entities/*; do
    ln -vsfn "$d" "$this_dir"
 done
 
+# Extra links
+ln -vsfn "$this_dir"/.config_entities/zsh/.zshenv "$HOME"/.zshenv
+
 # Configure git local config
 git_local_config="$this_dir"/git/local/config
 if [ ! -e "$git_local_config" ]; then

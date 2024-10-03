@@ -1,0 +1,2 @@
+#!zsh
+exec sudo nsenter -t $(pidof systemd) -a su - $LOGNAME
