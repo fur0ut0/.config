@@ -16,11 +16,11 @@ module_dir="$this_dir"/.config_entities/script/module
 . "$module_dir"/install_tmux.sh
 . "$module_dir"/install_vim.sh
 
+[ -d "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/user/start ] || confirm_install neovim_one
 which fish > /dev/null || confirm_install fish
 which fzf > /dev/null || confirm_install fzf
 which luarocks > /dev/null || confirm_install luarocks
 which nvim > /dev/null || confirm_install neovim
-[ -d "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/user/start ] || confirm_install neovim_one
 which pyenv > /dev/null || confirm_install pyenv
 which rg > /dev/null || confirm_install ripgrep
 which tmux > /dev/null || confirm_install tmux

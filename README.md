@@ -26,8 +26,11 @@ $ cd .config
 $ ./init.sh
 ```
 
-`setup.sh` provides a script to install utility packages:
+`install.sh` provides a script to install utility packages:
 
 ```shell
-$ ./setup.sh
+$ ./install.sh
 ```
+
+NOTE: currenly it supports only installation via apt on Ubuntu for almost all packages.
+
