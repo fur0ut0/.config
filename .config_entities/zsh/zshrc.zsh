@@ -1,7 +1,8 @@
 # zshrc
 
 autoload -U zsource
-zsource $ZDOTDIR/local/zshrc.zsh # Source local one at last
+zsource $ZDOTDIR/local/zshrc.zsh
+zsource $XDG_DATA_HOME/zsh/zshrc.zsh
 
 # Create XDG Base Directory as needed
 [[ -d $XDG_DATA_HOME/zsh ]]  || mkdir -p $XDG_DATA_HOME/zsh

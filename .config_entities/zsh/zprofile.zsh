@@ -1,7 +1,8 @@
 # zprofile
 
 autoload -U zsource
-zsource $ZDOTDIR/local/zprofile.zsh # Source local one at first
+zsource $ZDOTDIR/local/zprofile.zsh
+zsource $XDG_DATA_HOME/zsh/zprofile.zsh
 
 case "$(uname -s)" in
    Darwin*) export OSTYPE=mac ;;

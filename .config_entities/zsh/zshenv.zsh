@@ -1,7 +1,8 @@
 # zshenv
 
 autoload -U zsource
-zsource $ZDOTDIR/local/zshenv.zsh # Source local one at first
+zsource $ZDOTDIR/local/zshenv.zsh
+zsource $XDG_DATA_HOME/zsh/zshrc.zsh
 
 setopt no_global_rcs # Skip loading /etc/zprofile etc.
 setopt no_sh_word_split
