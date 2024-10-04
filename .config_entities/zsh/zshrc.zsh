@@ -92,9 +92,6 @@ if (( $+functions[zinit] )); then
    # completions
    zinit ice lucid nocompile; zinit load MenkeTechnologies/zsh-cargo-completion
    zinit ice wait"0" as"completion"; zinit light gangleri/pipenv
-
-   typeset -g ENHANCD_DIR=$XDG_DATA_HOME/enhancd ENHANCD_DOT_ARG=... ENHANCD_HYPHEN_ARG=-- ENHANCD_HOME_ARG=%
-   zinit ice wait"0"; zinit light b4b4r07/enhancd
 fi
 
 #============#
