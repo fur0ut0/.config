@@ -43,6 +43,9 @@ if [ -d "$HOME" -a ! -d "$HOME"/.ssh ]; then
 fi
 if [ ! -f "$HOME"/.ssh/config ]; then
    cat > $HOME/.ssh/config <<EOS
+Host github.com
+    ForwardX11 no
+
 Host *
     ServerAliveInterval 300
     ServerAliveCountMax 10
