@@ -172,6 +172,11 @@ if [[ -d $PYENV_ROOT ]]; then
    autoload -Uz pyenv-update
 fi
 
+# brew
+if (( $+commands[brew] )); then
+   eval "$(brew shellenv | grep -v 'PATH')"
+fi
+
 # psql
 [[ -d $XDG_DATA_HOME/psql ]] || mkdir -p $XDG_DATA_HOME/psql
 export PSQL_HISTORY="$XDG_DATA_HOME/psql/history"

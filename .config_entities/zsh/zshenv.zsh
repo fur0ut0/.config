@@ -76,6 +76,27 @@ else
    unset GO_ROOT
 fi
 
+# brew
+if [[ -z $BREW_ROOT ]]; then
+   case $(uname -m) in
+      x86_64)
+         BREW_ROOT=/usr/local/Homebrew
+         ;;
+      arm64)
+         BREW_ROOT=/opt/homebrew
+         ;;
+      *)
+         BREW_ROOT=""
+         ;;
+   esac
+fi
+if [[ -d $BREW_ROOT ]]; then
+   export BREW_ROOT
+   add-to-env path $BREW_ROOT/bin
+else
+   unset BREW_ROOT
+fi
+
 # Fix umask for Windows Subsystem Linux
 [[ "$(umask)" = "000" ]] && umask 022
 
