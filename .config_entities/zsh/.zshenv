@@ -26,3 +26,4 @@ fpath=(
 
 autoload -U zsource
 zsource $ZDOTDIR/zshenv.zsh
+. "$HOME/.cargo/env"
