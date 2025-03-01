@@ -66,14 +66,14 @@ else
 fi
 
 # go
-if [[ -z $GO_ROOT ]]; then
-   GO_ROOT=$HOME/.local/share/go
+if [[ -z $GOROOT ]]; then
+   GOROOT=$HOME/.local/share/go
 fi
-if [[ -d $GO_ROOT ]]; then
-   export GO_ROOT
-   add-to-env path $GO_ROOT/bin
+if [[ -d $GOROOT ]]; then
+   export GOROOT
+   add-to-env path $GOROOT/bin
 else
-   unset GO_ROOT
+   unset GOROOT
 fi
 
 # brew
