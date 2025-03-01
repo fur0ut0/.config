@@ -262,38 +262,42 @@ fi
 
 # Attach existing tmux session or create new one
 # https://qiita.com/ssh0/items/a9956a74bff8254a606a
-autoload -Uz is-at-least
-if (( $+commands[tmux] * !$+TMUX )) && is-at-least 5.2.0 && (( ! $+DISABLE_AUTO_TMUX_ATTACH )) && [[ "$TERM_PROGRAM" != "vscode" ]]; then
-   () {
-      # Build session lists
-      # Colons(:) are used as delimiter
-      local -a sess_names
-      local sess_list="$(command tmux list-session 2> /dev/null)"
-      if [[ -n $sess_list ]]; then
-         sess_names+=("${(@f)sess_list}")
-      fi
-      local new_sess_id="c"
-      sess_names+=("$new_sess_id: Create new session")
-      local sess_ids=("${(@f)"$(echo ${(F)sess_names} | cut -d: -f1)"}")
 
-      local sess_id
-      if (( $+commands[fzf] )); then
-         sess_id="$(echo ${(F)sess_names[@]} | fzf | cut -d: -f1)"
-      else
-         print -u 2 -l "[TMUX Manager]" \
-            "Do you want to attach or create tmux session?"
-         print -u 2 -l -x 4 -- "\t"$^sess_names
-         read sess_id\?"Please enter ID (${(j:/:)sess_ids}): "
-      fi
+() {
+   autoload -Uz is-at-least
+   ! is-at-least 5.2.0 && return 0
+   (( $+commands[tmux] * $+TMUX )) && return 0
+   (( $+DISABLE_AUTO_TMUX_ATTACH )) && return 0
+   (( $+VSCODE_RESOLVING_ENVIRONMENT )) && return 0
+   [[ "$TERM_PROGRAM" == "vscode" ]] && return 0
 
-      if [[ "$sess_id" == "$new_sess_id" ]]; then
-         tmux -f "$TMUX_CONFIG_DIR/tmux.conf" new-session
-      elif (( $+sess_ids[(re)$sess_id] )); then
-         tmux attach-session -d -t "$sess_id"
-      else
-         print -u 2 -- "Unknown ID: $sess_id. Abort."
-         :  # Start terminal normally
-      fi
-   }
-fi
+   # Build session lists
+   # Colons(:) are used as delimiter
+   local -a sess_names
+   local sess_list="$(command tmux list-session 2> /dev/null)"
+   if [[ -n $sess_list ]]; then
+      sess_names+=("${(@f)sess_list}")
+   fi
+   local new_sess_id="c"
+   sess_names+=("$new_sess_id: Create new session")
+   local sess_ids=("${(@f)"$(echo ${(F)sess_names} | cut -d: -f1)"}")
 
+   local sess_id
+   if (( $+commands[fzf] )); then
+      sess_id="$(echo ${(F)sess_names[@]} | fzf | cut -d: -f1)"
+   else
+      print -u 2 -l "[TMUX Manager]" \
+         "Do you want to attach or create tmux session?"
+      print -u 2 -l -x 4 -- "\t"$^sess_names
+      read sess_id\?"Please enter ID (${(j:/:)sess_ids}): "
+   fi
+
+   if [[ "$sess_id" == "$new_sess_id" ]]; then
+      tmux -f "$TMUX_CONFIG_DIR/tmux.conf" new-session
+   elif (( $+sess_ids[(re)$sess_id] )); then
+      tmux attach-session -d -t "$sess_id"
+   else
+      print -u 2 -- "Unknown ID: $sess_id. Abort."
+      :  # Start terminal normally
+   fi
+}
