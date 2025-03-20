@@ -49,7 +49,7 @@ if [[ -z $CARGO_HOME ]]; then
 fi
 if [[ -d $CARGO_HOME ]]; then
    export CARGO_HOME
-   add-to-env path $CARGO_HOME/bin
+   . $CARGO_HOME/env
 else
    unset CARGO_HOME
 fi
