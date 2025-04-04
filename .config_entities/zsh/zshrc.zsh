@@ -270,6 +270,7 @@ fi
    (( $+DISABLE_AUTO_TMUX_ATTACH )) && return 0
    (( $+VSCODE_RESOLVING_ENVIRONMENT )) && return 0
    [[ "$TERM_PROGRAM" == "vscode" ]] && return 0
+   [[ "$TERM_PROGRAM" == "WarpTerminal" ]] && return 0
 
    # Build session lists
    # Colons(:) are used as delimiter
