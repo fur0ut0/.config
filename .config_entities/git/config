@@ -4,7 +4,6 @@
 
 # editorial
 [core]
-   editor = nvim
    whitespace = cr-at-eol
    quotepath = false
 [color]

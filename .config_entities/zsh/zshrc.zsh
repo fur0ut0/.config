@@ -198,6 +198,18 @@ else
    export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
 fi
 
+# editors
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+   export VISUAL="code --wait"
+   export EDITOR="$VISUAL"
+elif (( $+commands[nvim] )); then
+   export VISUAL="nvim"
+   export EDITOR="$VISUAL"
+else
+   export VISUAL="vim"
+   export EDITOR="$VISUAL"
+fi
+
 # tmux
 export TMUX_CONFIG_DIR=$XDG_CONFIG_HOME/tmux
 alias tmux='tmux -f $TMUX_CONFIG_DIR/tmux.conf'
